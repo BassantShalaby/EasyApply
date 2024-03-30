@@ -230,4 +230,108 @@ INSERT INTO applies (applicant_id, job_id, status) VALUES
 INSERT INTO locations (city_id, country_id) VALUES
 (1, 1),
 (2, 2);
+-- =========================================================================
+-- Insert fake data into Country table for Arab countries
+INSERT INTO countries (name) VALUES 
+('Saudi Arabia'),
+('United Arab Emirates'),
+('Egypt'),
+('Iraq'),
+('Syria'),
+('Jordan'),
+('Lebanon'),
+('Algeria'),
+('Morocco'),
+('Tunisia'),
+('Libya'),
+('Oman'),
+('Kuwait'),
+('Qatar'),
+('Bahrain'),
+('Yemen');
+
+-- Insert fake data into City table for cities in Arab countries
+INSERT INTO cities (name) VALUES 
+('Riyadh'), ('Jeddah'), ('Dammam'), ('Medina'), ('Mecca'),         -- Saudi Arabia
+('Dubai'), ('Abu Dhabi'), ('Sharjah'), ('Ajman'), ('Fujairah'),    -- United Arab Emirates
+('Cairo'), ('Alexandria'), ('Giza'), ('Shubra El Kheima'), ('Port Said'), -- Egypt
+('Baghdad'), ('Basra'), ('Mosul'), ('Erbil'), ('Karbala'),        -- Iraq
+('Damascus'), ('Aleppo'), ('Homs'), ('Hama'), ('Latakia'),         -- Syria
+('Amman'), ('Zarqa'), ('Irbid'), ('Salt'), ('Aqaba'),              -- Jordan
+('Beirut'), ('Tripoli'), ('Sidon'), ('Tyre'), ('Zahle'),           -- Lebanon
+('Algiers'), ('Oran'), ('Constantine'), ('Annaba'), ('Batna'),     -- Algeria
+('Rabat'), ('Casablanca'), ('Fes'), ('Tangier'), ('Marrakesh'),    -- Morocco
+('Tunis'), ('Sfax'), ('Sousse'), ('Kairouan'), ('Bizerte'),       -- Tunisia
+('Tripoli'), ('Benghazi'), ('Misrata'), ('Tarhuna'), ('Zawiya'),   -- Libya
+('Muscat'), ('Salalah'), ('Sohar'), ('Nizwa'), ('Sur'),            -- Oman
+('Kuwait City'), ('Hawalli'), ('Farwaniya'), ('Mangaf'), ('Jahra'),-- Kuwait
+('Doha'), ('Al Rayyan'), ('Umm Salal'), ('Al Wakrah'), ('Al Khor'),-- Qatar
+('Manama'), ('Muharraq'), ('Riffa'), ('Hamad Town'), ("A'ali"),    -- Bahrain
+('Sanaa'), ('Aden'), ('Taiz'), ('Al Hudaydah'), ('Ibb');           -- Yemen
+
+-- Insert fake data into Location table
+INSERT INTO locations (city_id, country_id) VALUES 
+-- Saudi Arabia
+(1, 1), (2, 1), (3, 1), (4, 1), (5, 1), 
+-- United Arab Emirates
+(6, 2), (7, 2), (8, 2), (9, 2), (10, 2),
+-- Egypt
+(11, 3), (12, 3), (13, 3), (14, 3), (15, 3),
+-- Iraq
+(16, 4), (17, 4), (18, 4), (19, 4), (20, 4),
+-- Syria
+(21, 5), (22, 5), (23, 5), (24, 5), (25, 5),
+-- Jordan
+(26, 6), (27, 6), (28, 6), (29, 6), (30, 6),
+-- Lebanon
+(31, 7), (32, 7), (33, 7), (34, 7), (35, 7),
+-- Algeria
+(36, 8), (37, 8), (38, 8), (39, 8), (40, 8),
+-- Morocco
+(41, 9), (42, 9), (43, 9), (44, 9), (45, 9),
+-- Tunisia
+(46, 10), (47, 10), (48, 10), (49, 10), (50, 10),
+-- Libya
+(51, 11), (52, 11), (53, 11), (54, 11), (55, 11),
+-- Oman
+(56, 12), (57, 12), (58, 12), (59, 12), (60, 12),
+-- Kuwait
+(61, 13), (62, 13), (63, 13), (64, 13), (65, 13),
+-- Qatar
+(66, 14), (67, 14), (68, 14), (69, 14), (70, 14),
+-- Bahrain
+(71, 15), (72, 15), (73, 15), (74, 15), (75, 15),
+-- Yemen
+(76, 16), (77, 16), (78, 16), (79, 16), (80, 16);
+
+-- -----------------------------
+
+-- Insert fake data into Country table for non-Arab countries
+INSERT INTO countries (name) VALUES 
+('United States'),
+('United Kingdom'),
+('Canada'),
+('Australia'),
+('Germany');
+
+-- Insert fake data into City table for cities in non-Arab countries
+INSERT INTO cities (name) VALUES 
+('New York'), ('Los Angeles'), ('Chicago'), ('Houston'), ('Phoenix'),     -- United States
+('London'), ('Birmingham'), ('Manchester'), ('Liverpool'), ('Glasgow'),   -- United Kingdom
+('Toronto'), ('Montreal'), ('Vancouver'), ('Calgary'), ('Ottawa'),        -- Canada
+('Sydney'), ('Melbourne'), ('Brisbane'), ('Perth'), ('Adelaide'),         -- Australia
+('Berlin'), ('Hamburg'), ('Munich'), ('Cologne'), ('Frankfurt');         -- Germany
+
+-- Insert fake data into Location table for non-Arab countries
+INSERT INTO locations (city_id, country_id) VALUES 
+-- United States
+(81, 17), (82, 17), (83, 17), (84, 17), (85, 17),
+-- United Kingdom
+(86, 18), (87, 18), (88, 18), (89, 18), (90, 18),
+-- Canada
+(91, 19), (92, 19), (93, 19), (94, 19), (95, 19),
+-- Australia
+(96, 20), (97, 20), (98, 20), (99, 20), (100, 20),
+-- Germany
+(101, 21), (102, 21), (103, 21), (104, 21), (105, 21);
 
