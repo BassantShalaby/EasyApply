@@ -5,10 +5,11 @@ function basePath($path = '')
     return __DIR__ . "/" . $path;
 }
 
-function loadView($name)
+function view($name, $data = [])
 {
     $path = basePath("App/views/{$name}.view.php");
     if (file_exists($path)) {
+        extract($data);
         require $path;
     } else {
         echo "View $name not found";

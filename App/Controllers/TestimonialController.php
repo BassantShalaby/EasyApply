@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Controllers;
 
-class Testimonial
+class TestimonialController
 {
 
     function index()
     {
-        loadView('testimonial');
+        view('testimonial');
     }
 }

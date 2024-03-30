@@ -1,6 +1,6 @@
 {
     "name" : "bassantshalaby/easyapply",
-    "description": "Job listing application",
+    "description": "job portal website",
     "authors": [
         {
           "name": "Heba A. Rakha",
@@ -12,7 +12,7 @@
           "Framework\\": "Framework/",
           "App\\": "App/"
         }
-      }
+    }
 }
 
 

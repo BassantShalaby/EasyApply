@@ -34,6 +34,9 @@ This is a job portal website developed as a project for ITI intensive code camp.
     - Configure the database connection in `config/db.php`.
 
 4. **Start the Server:**
+    - ```bash
+        composer install
+        ```
     - If you have PHP installed, you can use the built-in server:
         ```bash
         php -S localhost:8000 -t public

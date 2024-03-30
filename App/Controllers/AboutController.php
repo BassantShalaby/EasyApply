@@ -2,12 +2,11 @@
 
 namespace App\Controllers;
 
-use Framework\Database;
-
-class Home
+class AboutController
 {
+
     function index()
     {
-        loadView('home');
+        view('about');
     }
 }

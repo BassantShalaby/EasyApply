@@ -1,37 +1,21 @@
 <?php
-
 namespace Framework;
+
+use App\Controllers\ErrorController;
 
 class Router
 {
     protected $routes = [];
-
-  /**
-   * Add a new route
-   *
-   * @param string $method
-   * @param string $uri
-   * @param string $action
-//    * @param array $middleware
-   * 
-   * @return void
-   */
-//   public function registerRoute($method, $uri, $action, $middleware = [])
-  public function registerRoute($method, $uri, $action)
-  {
-    list($controller, $controllerMethod) = explode('@', $action);
-
-    // var_dump($controller);
-    // var_dump($controllerMethod);
-    // exit();
-    $this->routes[] = [
-      'method' => $method,
-      'uri' => $uri,
-      'controller' => $controller,
-      'controllerMethod' => $controllerMethod,
-    //   'middleware' => $middleware
-    ];
-  }
+    public function registerRoute($method, $uri, $action)
+    {
+        list($controller, $controllerMethod) = explode('@', $action);
+        $this->routes[] = [
+            'method' => $method,
+            'uri' => $uri,
+            'controller' => $controller,
+            'controllerMethod' => $controllerMethod,
+        ];
+    }
 
     public function get($uri, $controller)
     {
@@ -52,33 +36,19 @@ class Router
         $this->registerRoute('DELETE', $uri, $controller);
     }
 
-    public function error($statusCode = 404)
-    {
-        http_response_code($statusCode);
-        loadView("errors/$statusCode");
-    }
-
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                $controller = 'App\\Controllers\\'. $route['controller'];
+                $controller = 'App\\Controllers\\' . $route['controller'];
                 $controllerMethod = $route['controllerMethod'];
                 $controllerInstance = new $controller();
                 $controllerInstance->$controllerMethod();
                 return;
-
-
-                /////////  jobs ??????
-                // $listing = new ListingController;
-                // $listing->$controllerMethod();
-
             }
         }
 
-        $this->error();
-
-
+        ErrorController::notFound();
     }
 
 }

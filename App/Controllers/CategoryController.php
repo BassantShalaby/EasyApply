@@ -1,15 +1,14 @@
 <?php
 
-
-
 namespace App\Controllers;
 
-class Contact
+class CategoryController
 {
 
     function index()
     {
-        loadView('contact');
+        view('category');
     }
 }
+
 

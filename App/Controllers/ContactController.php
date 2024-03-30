@@ -1,14 +1,13 @@
 <?php
 
-
-
 namespace App\Controllers;
 
-class About
+class ContactController
 {
 
     function index()
     {
-        loadView('about');
+        view('contact');
     }
 }
+
