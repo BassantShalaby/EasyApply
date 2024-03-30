@@ -23,7 +23,7 @@ This is a job portal website developed as a project for ITI intensive code camp.
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/job-portal.git
+    git clone git@github.com:BassantShalaby/EasyApply.git
     ```
 
 2. **Database Setup:**
@@ -31,7 +31,7 @@ This is a job portal website developed as a project for ITI intensive code camp.
     - Import the `database.sql` file to set up the required tables.
 
 3. **Configuration:**
-    - Configure the database connection in `config/config.php`.
+    - Configure the database connection in `config/db.php`.
 
 4. **Start the Server:**
     - If you have PHP installed, you can use the built-in server:

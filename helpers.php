@@ -7,7 +7,7 @@ function basePath($path = '')
 
 function loadView($name)
 {
-    $path = basePath("views/{$name}.view.php");
+    $path = basePath("App/views/{$name}.view.php");
     if (file_exists($path)) {
         require $path;
     } else {
@@ -17,7 +17,7 @@ function loadView($name)
 
 function loadPartial($name)
 {
-    $path = basePath("views/partials/{$name}.php");
+    $path = basePath("App/views/partials/{$name}.php");
     if (file_exists($path)) {
         require $path;
     } else {
@@ -38,3 +38,5 @@ function dd($value)
     echo "</pre>";
     exit;
 }
+
+

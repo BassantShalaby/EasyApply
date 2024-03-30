@@ -1,0 +1,9 @@
+.sign-type {
+  border-color: #00cc00; /* Green border */
+  background-color: #f7fcf7; /* Light green background */
+  color: #000; /* Black text color */
+}
+
+.sign-type:hover {
+  background-color: #cbedcb; /* Light green background on hover */
+}

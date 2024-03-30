@@ -1,5 +1,8 @@
 <?php
-
+namespace Framework;
+use PDO;
+use PDOException;
+use Exception;
 class Database
 {
     public $connection;
@@ -13,12 +16,11 @@ class Database
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ];
 
-        try{
+        try {
             $this->connection = new PDO($dsn, $config["username"], $config["password"]);
             echo 'connected';
-        }
-        catch(PDOException $error){
+        } catch (PDOException $error) {
             throw new Exception("Database connetion failed: {$error->getMessage()}");
-        }  
-}
+        }
+    }
 }
