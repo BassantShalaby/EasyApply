@@ -29,7 +29,17 @@ class ComposerStaticInitdde845f5c4edb43e5961638d71e5bd47
     );
 
     public static $classMap = array (
+        'App\\Controllers\\AboutController' => __DIR__ . '/../..' . '/App/Controllers/AboutController.php',
+        'App\\Controllers\\ApplicantController' => __DIR__ . '/../..' . '/App/Controllers/ApplicantController.php',
+        'App\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/App/Controllers/CategoryController.php',
+        'App\\Controllers\\ContactController' => __DIR__ . '/../..' . '/App/Controllers/ContactController.php',
+        'App\\Controllers\\ErrorController' => __DIR__ . '/../..' . '/App/Controllers/ErrorController.php',
+        'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/App/Controllers/HomeController.php',
+        'App\\Controllers\\JobController' => __DIR__ . '/../..' . '/App/Controllers/JobController.php',
+        'App\\Controllers\\TestimonialController' => __DIR__ . '/../..' . '/App/Controllers/TestimonialController.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Framework\\Database' => __DIR__ . '/../..' . '/Framework/Database.php',
+        'Framework\\Router' => __DIR__ . '/../..' . '/Framework/Router.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
