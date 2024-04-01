@@ -40,4 +40,10 @@ function dd($value)
     exit;
 }
 
+function redirect($url)
+{
+    header("Location: $url");
+    exit;
+}
+
 

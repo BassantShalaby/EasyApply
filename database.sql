@@ -85,6 +85,7 @@ CREATE TABLE applicants (
 
 CREATE TABLE jobs (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    org_id BIGINT UNSIGNED,
     title VARCHAR(100) NOT NULL,
     description TEXT,
     open_vacancies SMALLINT,
@@ -95,7 +96,7 @@ CREATE TABLE jobs (
     exp_years TINYINT,
     country_id BIGINT UNSIGNED,
     city_id BIGINT UNSIGNED,
-    location_type ENUM('remote', 'hyprid' , 'on_site'),
+    location_type ENUM('remote', 'hybrid' , 'on_site'),
     salary_max DECIMAL(10, 2),
     salary_min DECIMAL(10, 2),
     gender ENUM('male', 'female', 'any'),
@@ -104,6 +105,7 @@ CREATE TABLE jobs (
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now() on update now(),
     expiry_date TIMESTAMP AS (DATE_ADD(created_at,INTERVAL 5 MONTH)),
+    FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE
