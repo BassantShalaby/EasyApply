@@ -46,4 +46,17 @@ function redirect($url)
     exit;
 }
 
+function formatSalary($value)
+{
+    if ($value < 900) {
+        $formattedSalary = number_format($value);
+        $suffix = '';
+    } elseif ($value < 900000) {
+        $formattedSalary = number_format($value / 1000);
+        $suffix = 'K';
+    }
+
+    return $formattedSalary . $suffix;
+}
+
 

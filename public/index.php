@@ -5,8 +5,8 @@ require ('../helpers.php');
 
 use Framework\Router;
 
-require basePath('Framework/Database.php');
-require basePath('Framework/Router.php');
+// require basePath('Framework/Database.php');
+// require basePath('Framework/Router.php');
 
 // include the following code in the controller you want to get data from database in it
 /* 
@@ -30,11 +30,8 @@ $router = new Router();
 
 require basePath('routes.php');
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$method = $_SERVER['REQUEST_METHOD'];
 
-
-
-$router->route($uri, $method);
+$router->route($uri);
 
 
 

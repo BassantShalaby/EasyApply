@@ -34,25 +34,25 @@ loadPartial("navbar");
                                 <h5 class="mb-3">
                                     <?= $job['title'] ?>
                                 </h5>
-                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>New
-                                    York,
-                                    USA</span>
+                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                    <?= "{$job['city_name']}, {$job['country_name']}" ?>
+                                </span>
                                 <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>
                                     <?= $job['emp_type'] ?>
                                 </span>
-                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>
-                                    $
-                                    <?= $job['salary_min'] ?>
-                                    -
-                                    $
-                                    <?= $job['salary_max'] ?>
-                                </span>
+                                <?php if ($job['salary_min']): ?>
+                                    <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>
+                                        <?= '$' . formatSalary($job['salary_min']) ?>
+                                        -
+                                        <?= '$' . formatSalary($job['salary_max']) ?>
+                                    </span>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div
                             class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                             <div class="d-flex mb-3">
-                                <a class="btn btn-primary" href="">Apply Now</a>
+                                <a class="btn btn-primary" href="/jobs/show?id=<?= $job['id'] ?>">Details</a>
                             </div>
                             <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>
                                 Date Line:
