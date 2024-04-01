@@ -39,4 +39,17 @@ $router->post('/login', 'LoginController@Login');
 $router->get('/logout', 'AuthController@Logout');
 
 
+// Applicants Routes
+$router->get('/applicants', 'ApplicantController@index');
+$router->get('/applicants/show', 'ApplicantController@show');
+$router->get('/applicants/jobs', 'ApplicantController@jobs');
+$router->get('/applicants/edit', 'ApplicantController@edit');
+// Organizations Routes
+// $router->get('/organizations', 'OrganizationController@index');
+$router->get('/organizations/show', 'OrganizationController@show');
+$router->get('/organizations/edit', 'OrganizationController@edit');
+$router->get('/organizations/jobs', 'OrganizationController@jobs');
+$router->get('/organizations/job-apps', 'OrganizationController@applications');
+$router->post('/organizations/updateStatus', 'OrganizationController@updateStatus');
+
 
