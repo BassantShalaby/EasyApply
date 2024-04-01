@@ -1,19 +1,21 @@
-drop database easy_apply;
-create database easy_apply;
-use easy_apply
+DROP DATABASE easy_apply;
+CREATE DATABASE easy_apply;
+USE easy_apply
 
 CREATE TABLE countries (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now() on update now()
-);
+); 
 
 CREATE TABLE cities (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    country_id BIGINT UNSIGNED,
     created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now() on update now()
+    updated_at TIMESTAMP DEFAULT now() on update now(),
+    FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE organizations (
@@ -48,7 +50,6 @@ CREATE TABLE categories(
     updated_at TIMESTAMP DEFAULT now() on update now()
 );
 
--- Create skills_categories table (Many-to-Many relationship)
 CREATE TABLE skills_categories (
 	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     skill_id BIGINT UNSIGNED,
@@ -82,6 +83,15 @@ CREATE TABLE applicants (
     FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE applicants_skills (
+	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    applicant_id BIGINT UNSIGNED,
+    skill_id BIGINT UNSIGNED,
+    created_at TIMESTAMP DEFAULT now(),
+    updated_at TIMESTAMP DEFAULT now() on update now(),
+    FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE jobs (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -94,7 +104,6 @@ CREATE TABLE jobs (
     job_status ENUM('Closed', 'Open'),
     level ENUM('Entry Level', 'Junior', 'Mid Level' , 'Senior', 'Lead'),
     exp_years TINYINT,
-    country_id BIGINT UNSIGNED,
     city_id BIGINT UNSIGNED,
     location_type ENUM('Remote', 'Hybrid' , 'Onsite'),
     salary_max DECIMAL(10, 2),
@@ -107,24 +116,12 @@ CREATE TABLE jobs (
     updated_at TIMESTAMP DEFAULT now() on update now(),
     expiry_date TIMESTAMP AS (DATE_ADD(created_at,INTERVAL 5 MONTH)),
     FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
--- Create Applicant_Skills table (Many-to-Many relationship)
-CREATE TABLE applicant_skills (
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    applicant_id BIGINT UNSIGNED,
-    skill_id BIGINT UNSIGNED,
-    created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now() on update now(),
-    FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE job_skills (
+CREATE TABLE jobs_skills (
 	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     job_id BIGINT UNSIGNED,
     skill_id BIGINT UNSIGNED,
@@ -134,8 +131,6 @@ CREATE TABLE job_skills (
     FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
--- Create applyies table (Many-to-Many relationship)
 CREATE TABLE applies (
 	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     applicant_id BIGINT UNSIGNED,
@@ -148,41 +143,68 @@ CREATE TABLE applies (
     FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Create locations table (One-to-One relationship)
-CREATE TABLE locations (
-	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    city_id BIGINT UNSIGNED,
-    country_id BIGINT UNSIGNED,
-    created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now() on update now(),
-    FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- =================================================================== INSERTION ==========================================================================
 
--- ========================================================================================================================
--- Insert fake data into countries table
 INSERT INTO countries (name) VALUES
-('USA'),
-('UK'),
+('United States'),
 ('Canada'),
-('Australia');
+('United Kingdom'),
+('Germany'),
+('France'),
+('Italy'),
+('Egypt');
 
--- Insert fake data into cities table
-INSERT INTO cities (name) VALUES
-('New York'),
-('usac1'),
-('usac2'),
-('London'),
-('Toronto'),
-('Sydney');
+INSERT INTO cities (name, country_id) VALUES
+('New York', 1),
+('Los Angeles', 1),
+('Toronto', 2),
+('Vancouver', 2),
+('London', 3),
+('Manchester', 3),
+('Berlin', 4),
+('Munich', 4),
+('Paris', 5),
+('Marseille', 5),
+('Rome', 6),
+('Milan', 6),
+('Cairo', 7),
+('Alexandria', 7),
+('Luxor', 7),
+('Aswan', 7),
+('Giza', 7),
+('Sharm El Sheikh', 7),
+('Hurghada', 7),
+('Dahab', 7),
+('Asyut', 7),
+('Fayoum', 7),
+('Cairo', 7),
+('Alexandria', 7),
+('Giza', 7),
+('Port Said', 7),
+('Suez', 7),
+('Luxor', 7),
+('Asyut', 7),
+('Mansoura', 7),
+('Al-Minya', 7),
+('Hurghada', 7),
+('Qena', 7),
+('Sohag', 7),
+('Beni Suef', 7),
+('Aswan', 7),
+('Faiyum', 7),
+('Damietta', 7),
+('Ismailia', 7),
+('Al-Mahalla Al-Kubra', 7),
+('Kafr El Sheikh', 7),
+('Matruh', 7),
+('Port said', 7),
+('Sohag', 7);
 
--- Insert fake data into organizations table
-INSERT INTO organizations (name, email, password, phone, country_id, city_id, industry, logo, info) VALUES
-('Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '+123456789', 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider'),
-('Global Enterprises', 'contact@globent.com', 'password2', '+987654321', 2, 2, 'Consulting', 'logo2.png', 'International consulting firm'),
-('ABC Corporation', 'info@abccorp.com', 'password3', '+1122334455', 3, 3, 'Finance', 'logo3.png', 'Financial services company');
+INSERT INTO organizations (name, email, password, phone, link, country_id, city_id, industry, logo, info) VALUES
+('Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '+123456789', NULL, 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider'),
+('Global Enterprises', 'contact@globent.com', 'password2', '+987654321', NULL, 2, 2, 'Consulting', 'logo2.png', 'International consulting firm'),
+('ABC Corporation', 'info@abccorp.com', 'password3', '+1122334455', NULL, 3, 3, 'Finance', 'logo3.png', 'Financial services company');
 
--- Insert fake data into skills table
 INSERT INTO skills (name) VALUES
 ('Programming'),
 ('Database Management'),
@@ -190,14 +212,25 @@ INSERT INTO skills (name) VALUES
 ('Communication'),
 ('Problem Solving');
 
--- Insert fake data into categories table
 INSERT INTO categories (name) VALUES
 ('IT'),
 ('Finance'),
 ('Consulting'),
-('Healthcare');
+('Healthcare'),
+('Technology'),
+('Manufacturing'),
+('Retail'),
+('Hospitality'),
+('Automotive'),
+('Construction'),
+('Education'),
+('Entertainment'),
+('Food & Beverage'),
+('Real Estate'),
+('Transportation'),
+('Utilities'),
+('Telecommunications');
 
--- Insert fake data into skills_categories table
 INSERT INTO skills_categories (skill_id, category_id) VALUES
 (1, 1),
 (2, 1),
@@ -205,33 +238,67 @@ INSERT INTO skills_categories (skill_id, category_id) VALUES
 (4, 2),
 (5, 3);
 
--- Insert fake data into applicants table
 INSERT INTO applicants (first_name, last_name, birthdate, email, country_id, city_id, password, bio, cv, picture, phone, title, experience, exp_years, gender) VALUES
 ('John', 'Doe', '1990-05-15', 'john.doe@example.com', 1, 1, 'password', 'Experienced software engineer', 'cv.pdf', 'john.jpg', '+123456789', 'Software Engineer', 'senior', 5, 'male'),
 ('Jane', 'Smith', '1995-08-20', 'jane.smith@example.com', 2, 2, 'password', 'Recent graduate seeking entry-level position', 'resume.doc', 'jane.jpg', '+987654321', 'Graduate', 'entry-level', 0, 'female');
 
--- Insert fake data into jobs table
-INSERT INTO jobs (title, description, open_vacancies, hired, applied, job_status, level, exp_years, country_id, city_id, location_type, salary_max, salary_min, gender, emp_type, category_id) VALUES
-('Software Engineer', 'Develop and maintain software applications', 3, 1, 10, 'Open', 'Mid Level', 3, 1, 1, 'Remote', 80000.00, 60000.00, 'Any', 'Full Time', 1),
-('Financial Analyst', 'Analyze financial data and prepare reports', 2, 0, 5, 'Open', 'Junior', 1, 3, 3, 'Onsite', 70000.00, 50000.00, 'Any', 'Full Time', 2);
-
-
--- Insert fake data into applicant_skills table
-INSERT INTO applicant_skills (applicant_id, skill_id) VALUES
+INSERT INTO applicants_skills (applicant_id, skill_id) VALUES
 (1, 1),
 (1, 2),
 (2, 4);
 
--- Insert fake data into applyies table
+
+INSERT INTO jobs (org_id, title, description, open_vacancies, hired, applied, job_status, level, exp_years, city_id, location_type, salary_max, salary_min, gender, emp_type, category_id, requirements)
+VALUES
+(1, 'Software Engineer', 'Develop and maintain software applications.', 5, 2, 10, 'Open', 'Mid Level', 3, 1, 'Remote', 80000.00, 60000.00, 'Any', 'Full Time', 1, 'Bachelor''s degree in Computer Science or related field.'),
+(2, 'Data Analyst', 'Analyze and interpret data to provide insights.', 3, 1, 5, 'Open', 'Junior', 2, 2, 'Hybrid', 70000.00, 50000.00, 'Any', 'Full Time', 2, 'Experience with SQL and data visualization tools.'),
+(3, 'Marketing Specialist', 'Create and implement marketing campaigns.', 2, 0, 3, 'Open', 'Entry Level', 1, 3, 'Onsite', 60000.00, 40000.00, 'Any', 'Full Time', 3, 'Strong communication and creativity skills.');
+
+INSERT INTO jobs_skills (job_id, skill_id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 2),
+(2, 4),
+(3, 5);
+
 INSERT INTO applies (applicant_id, job_id, status) VALUES
 (1, 1, 'pending'),
-(2, 2, 'approved');
+(2, 2, 'applied');
 
--- Insert fake data into locations table
-INSERT INTO locations (city_id, country_id) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(2, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

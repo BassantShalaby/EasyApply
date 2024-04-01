@@ -91,9 +91,9 @@ loadPartial("navbar");
 
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="expYears" placeholder="expYears"
-                                        name="expYears" value="<?= $oldJobData['expYears'] ?? '' ?>">
-                                    <label for="expYears">Years of Experience</label>
+                                    <input type="number" class="form-control" id="exp_years" placeholder="exp_years"
+                                        name="exp_years" value="<?= $oldJobData['exp_years'] ?? '' ?>">
+                                    <label for="exp_years">Years of Experience</label>
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@ loadPartial("navbar");
 
                                                 <?php foreach ($cities as $city): ?>
                                                     <?php if ($city["country_id"] === $country['id']): ?>
-                                                        <option value="<?= $city['city_id'] ?>" <?= isset($oldJobData['city']) && $oldJobData['city'] === $city['city_name'] ? 'selected' : '' ?>>
+                                                        <option value="<?= $city['city_id'] ?>" <?= isset($oldJobData['city_id']) && (int) $oldJobData['city_id'] === $city['city_id'] ? 'selected' : '' ?>>
                                                             <?= $city['city_name'] ?>
                                                         </option>
                                                     <?php endif; ?>
@@ -122,48 +122,48 @@ loadPartial("navbar");
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-select" id="locationType" name="locationType">
-                                        <option value="Onsite" <?= isset($oldJobData['locationType']) && $oldJobData['locationType'] === 'Onsite' ? 'selected' : '' ?>>
-                                            OnSite
+                                    <select class="form-select" id="location_type" name="location_type">
+                                        <option value="Onsite" <?= isset($oldJobData['location_type']) && $oldJobData['location_type'] === 'Onsite' ? 'selected' : '' ?>>
+                                            Onsite
                                         </option>
-                                        <option value="Remote" <?= isset($oldJobData['locationType']) && $oldJobData['locationType'] === 'Remote' ? 'selected' : '' ?>>
+                                        <option value="Remote" <?= isset($oldJobData['location_type']) && $oldJobData['location_type'] === 'Remote' ? 'selected' : '' ?>>
                                             Remote
                                         </option>
-                                        <option value="Hybrid" <?= isset($oldJobData['locationType']) && $oldJobData['locationType'] === 'Hybrid' ? 'selected' : '' ?>>
+                                        <option value="Hybrid" <?= isset($oldJobData['location_type']) && $oldJobData['location_type'] === 'Hybrid' ? 'selected' : '' ?>>
                                             Hybrid
                                         </option>
                                     </select>
-                                    <label for="locationType">Location Type</label>
+                                    <label for="location_type">Location Type</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-select" id="empType" name="empType">
-                                        <option value="Full Time" <?= isset($oldJobData['empType']) && $oldJobData['empType'] === 'Full Time' ? 'selected' : '' ?>>
+                                    <select class="form-select" id="emp_type" name="emp_type">
+                                        <option value="Full Time" <?= isset($oldJobData['emp_type']) && $oldJobData['emp_type'] === 'Full Time' ? 'selected' : '' ?>>
                                             Full Time
                                         </option>
-                                        <option value="Part Time" <?= isset($oldJobData['empType']) && $oldJobData['empType'] === 'Part Time' ? 'selected' : '' ?>>
+                                        <option value="Part Time" <?= isset($oldJobData['emp_type']) && $oldJobData['emp_type'] === 'Part Time' ? 'selected' : '' ?>>
                                             Part Time
                                         </option>
                                     </select>
-                                    <label for="empType">Employment Type</label>
+                                    <label for="emp_type">Employment Type</label>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="salaryMin"
-                                        placeholder="Salary Minimum" name="salaryMin"
-                                        value="<?= $oldJobData['salaryMin'] ?? '' ?>">
-                                    <label for="salaryMin">Salary Min</label>
+                                    <input type="number" class="form-control" id="salary_min"
+                                        placeholder="Salary Minimum" name="salary_min"
+                                        value="<?= $oldJobData['salary_min'] ?? '' ?>">
+                                    <label for="salary_min">Salary Min</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="salaryMax"
-                                        placeholder="Salary Maximum" name="salaryMax"
-                                        value="<?= $oldJobData['salaryMax'] ?? '' ?>">
-                                    <label for="salaryMax">Salary Max</label>
+                                    <input type="number" class="form-control" id="salary_max"
+                                        placeholder="Salary Maximum" name="salary_max"
+                                        value="<?= $oldJobData['salary_max'] ?? '' ?>">
+                                    <label for="salary_max">Salary Max</label>
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@ loadPartial("navbar");
                                 <div class="form-floating">
                                     <select class="form-select" id="category" name="category_id">
                                         <?php foreach ($categories as $category): ?>
-                                            <option value="<?= $category['id'] ?>" <?= isset($oldJobData['category']) && $oldJobData['category'] === $category['name'] ? 'selected' : '' ?>>
+                                            <option value="<?= $category['id'] ?>" <?= isset($oldJobData['category_id']) && (int) $oldJobData['category_id'] === $category['id'] ? 'selected' : '' ?>>
                                                 <?= $category['name'] ?>
                                             </option>
                                         <?php endforeach; ?>

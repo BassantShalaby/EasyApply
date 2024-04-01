@@ -36,10 +36,17 @@ class Router
         $this->registerRoute('DELETE', $uri, $controller);
     }
 
-    public function route($uri, $method)
+    public function route($uri)
     {
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+        if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+            $requestMethod = strtoupper($_POST['_method']);
+        }
+
+        // dd($requestMethod);
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === $method) {
+            if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
                 $controller = 'App\\Controllers\\' . $route['controller'];
                 $controllerMethod = $route['controllerMethod'];
                 $controllerInstance = new $controller();
