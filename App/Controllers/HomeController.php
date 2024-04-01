@@ -8,4 +8,8 @@ class HomeController
     {
         view('home');
     }
+    public function Organization()
+    {
+        view('organization');
+    }
 }

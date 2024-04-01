@@ -1,12 +1,22 @@
 <?php
-
-require '../vendor/autoload.php';
-require ('../helpers.php');
-
+require __DIR__ . '/../vendor/autoload.php';
 use Framework\Router;
+use Framework\Session;
 
-require basePath('Framework/Database.php');
-require basePath('Framework/Router.php');
+Session::start();
+
+require '../helpers.php';
+
+
+$router = new Router();
+
+require basePath('routes.php');
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
+
+
+
+$router->route($uri, $method);
 
 // include the following code in the controller you want to get data from database in it
 /* 
@@ -25,16 +35,6 @@ $jobs = $db->query('select * from jobs where id = ?', [1])->fetchAll(PDO::FETCH_
 dd($jobs);
 */
 
-
-$router = new Router();
-
-require basePath('routes.php');
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$method = $_SERVER['REQUEST_METHOD'];
-
-
-
-$router->route($uri, $method);
 
 
 
