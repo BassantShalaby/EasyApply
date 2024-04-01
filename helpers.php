@@ -16,10 +16,11 @@ function view($name, $data = [])
     }
 }
 
-function loadPartial($name)
+function loadPartial($name , $data = [])
 {
     $path = basePath("App/views/partials/{$name}.php");
     if (file_exists($path)) {
+        extract($data);
         require $path;
     } else {
         echo "Partial $name not found";
