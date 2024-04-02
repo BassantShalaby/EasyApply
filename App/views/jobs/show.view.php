@@ -27,9 +27,10 @@ loadPartial("navbar");
             <div class="col-lg-8">
                 <div class="d-flex align-items-baseline justify-content-between mb-5">
                     <div class="text-start ps-3 pe-5">
-                        <h3 class="mb-3">
+                        <h3 class="mb-3 text-dark">
                             <?= $job['title'] ?>
                         </h3>
+                        <hr>
                         <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>
                             <?= "{$job['city_name']}, {$job['country_name']}" ?>
                         </span>
@@ -54,7 +55,7 @@ loadPartial("navbar");
                     </div>
                 </div>
 
-                <div class="mb-5">
+                <div class="mb-5 mx-5">
 
                     <?php if ($job['description']): ?>
                         <h4 class="mb-3">Job description</h4>
@@ -89,6 +90,32 @@ loadPartial("navbar");
                         </ul>
                     <?php endif; ?>
                 </div>
+                <section class="container m-3">
+            <form method="POST" action="/jobs/show?id= <?= $job_id ?>">
+                <?php if (isset($errors)): ?>
+                    <?php foreach ($errors as $error) : ?>
+                        <div class="message bg-red-100 my-3 text-danger"> <?= $error ?> </div>
+                    <?php endforeach;?>
+                <?php endif;?>
+
+                <div class="row g-3">                
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a message here" id="reason" name="reason"  style="height: 150px"> <?= $apply['reason'] ?? '' ?> </textarea>
+                            <label for="reason">Reasons</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                    <?php if (!isset($_SESSION['token'])): ?>
+                        <button class="btn btn-primary w-100 py-3" disabled type="submit">Apply</button>
+                    <?php else: ?>
+                        <button class="btn btn-primary w-100 py-3" type="submit">Apply</button>
+                    <?php endif ?>
+
+                    </div>
+                </div>
+            </form>
+        </section>
             </div>
 
             <div class="col-lg-4">
@@ -130,16 +157,15 @@ loadPartial("navbar");
 
                 </div>
                 <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
-                    <h4 class="mb-4">Company Detail</h4>
+                    <h4 class="mb-4">Company Details</h4>
                     <p class="m-0">Ipsum dolor ipsum accusam stet et et diam dolores, sed rebum sadipscing elitr
                         vero dolores. Lorem dolore elitr justo et no gubergren sadipscing, ipsum et takimata
                         aliquyam et rebum est ipsum lorem diam. Et lorem magna eirmod est et et sanctus et, kasd
                         clita labore.</p>
                 </div>
             </div>
-            <div class="text-center wow slideInUp" data-wow-delay="0.1s">
-                <button class="btn btn-primary w-50 mx-auto" type="submit">Apply Now</button>
-            </div>
+
+
         </div>
     </div>
 </div>

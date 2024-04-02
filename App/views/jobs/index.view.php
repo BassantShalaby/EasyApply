@@ -27,7 +27,12 @@ loadPartial("search");
 <div class="container-fluid pb-5">
     <div class="container">
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Featured Jobs</h1>
+
+
+<?php if (!empty($jobs)): ?>
+
         <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
+            
             <?php foreach ($jobs as $job): ?>
                 <div class="job-item p-4 mb-4">
                     <div class="row g-4">
@@ -67,7 +72,12 @@ loadPartial("search");
 
             <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
         </div>
-
+        <?php else: ?>
+                <div class="text-center">
+                    <h3 class="text-danger">There are no jobs available contain ( <?= $keywords ?> ) </h3>
+                </div>
+            <?php endif ?>
+        
     </div>
 </div>
 
