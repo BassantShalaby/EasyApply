@@ -109,7 +109,11 @@ loadPartial("navbar");
                     <?php if (!isset($_SESSION['token'])): ?>
                         <button class="btn btn-primary w-100 py-3" disabled type="submit">Apply</button>
                     <?php else: ?>
-                        <button class="btn btn-primary w-100 py-3" type="submit">Apply</button>
+                        <?php if ($alreadyApplied): ?>
+                            <button class="btn btn-primary w-100 py-3" disabled type="submit">Already applied</button>
+                        <?php else: ?>
+                            <button class="btn btn-primary w-100 py-3" type="submit">Apply</button>
+                        <?php endif ?>                    
                     <?php endif ?>
 
                     </div>
