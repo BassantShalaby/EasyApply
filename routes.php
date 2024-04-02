@@ -19,12 +19,12 @@ $router->get('/testimonial', 'TestimonialController@index');
 //Jobs routes
 //--------------------
 $router->get('/jobs', 'JobController@index');
-$router->post('/jobs', 'JobController@store');
-$router->delete('/jobs/destroy', 'JobController@destroy');
-$router->get('/jobs/edit', 'JobController@edit');
-$router->put('/jobs/update', 'JobController@update');
+$router->post('/jobs', 'JobController@store', ['auth']);
+$router->delete('/jobs/destroy', 'JobController@destroy', ['auth']);
+$router->get('/jobs/edit', 'JobController@edit', ['auth']);
+$router->put('/jobs/update', 'JobController@update', ['auth']);
 $router->get('/jobs/show', 'JobController@show');
-$router->get('/jobs/create', 'JobController@create');
+$router->get('/jobs/create', 'JobController@create', ['auth']);
 $router->get('/jobs/search', 'JobController@search');
 $router->post('/jobs/show', 'JobController@send_applied_job');
 
@@ -33,20 +33,20 @@ $router->post('/jobs/show', 'JobController@send_applied_job');
 //--------------------
 
 //signup as ....
-$router->get('/signup-type', 'AuthController@Index');
+$router->get('/signup-type', 'AuthController@Index', ['guest']);
 //organization signup
-$router->get('/org-create', 'OrgController@Create');
-$router->post('/org-create', 'OrgController@Store');
-$router->get('/home/organization', 'HomeController@organization');
+$router->get('/org-create', 'OrgController@Create', ['guest']);
+$router->post('/org-create', 'OrgController@Store', ['guest']);
+$router->get('/home/organization', 'HomeController@organization', ['auth']);
 //applicant signup
-$router->get('/appl-create', 'ApplicantController@Create');
-$router->post('/appl-create', 'ApplicantController@Store');
-$router->get('/home/applicant', 'HomeController@applicant');
+$router->get('/appl-create', 'ApplicantController@Create', ['guest']);
+$router->post('/appl-create', 'ApplicantController@Store', ['guest']);
+$router->get('/home/applicant', 'HomeController@applicant', ['auth']);
 //login
-$router->get('/login', 'LoginController@Index');
-$router->post('/login', 'LoginController@Login');
+$router->get('/login', 'LoginController@Index', ['guest']);
+$router->post('/login', 'LoginController@Login', ['guest']);
 //logout
-$router->get('/logout', 'AuthController@Logout');
+$router->get('/logout', 'AuthController@Logout', ['auth']);
 
 //--------------------
 // Applicants Routes

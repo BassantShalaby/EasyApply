@@ -1,4 +1,7 @@
 <?php
+
+use Framework\Session;
+
 loadPartial("head");
 loadPartial("spinner");
 loadPartial("navbar");
@@ -32,7 +35,13 @@ loadPartial("search");
 <?php if (!empty($jobs)): ?>
 
         <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
+<<<<<<< HEAD
             
+=======
+
+            <?= loadPartial('flashMessage') ?>
+
+>>>>>>> b08464f ("adding auth")
             <?php foreach ($jobs as $job): ?>
                 <div class="job-item p-4 mb-4">
                     <div class="row g-4">

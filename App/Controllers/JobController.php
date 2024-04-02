@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
+use Framework\Authorization;
 use Framework\Database;
 use Framework\Sanitization;
+use Framework\Session;
 use PDO;
 
 class JobController
@@ -25,7 +27,7 @@ class JobController
     }
     public function index()
     {
-        $q = 'select j.*, c.name as city_name, ct.name as country_name from jobs j join cities c on j.city_id = c.id join countries ct on c.country_id = ct.id';
+        $q = 'select j.*, c.name as city_name, ct.name as country_name from jobs j join cities c on j.city_id = c.id join countries ct on c.country_id = ct.id order by j.created_at desc';
         $jobs = $this->db->query($q)->fetchAll(PDO::FETCH_ASSOC);
         view('jobs/index', [
             'jobs' => $jobs,
@@ -43,7 +45,9 @@ class JobController
     public function store()
     {
         $sanitizedData = [];
-        foreach ($_POST as $fieldKey => $fieldValue) {
+        $newJobData = $_POST;
+        $newJobData['org_id'] = Session::get('id');
+        foreach ($newJobData as $fieldKey => $fieldValue) {
             if (gettype($fieldValue) !== 'array') {
                 $sanitizedData[$fieldKey] = Sanitization::sanitizeHTML($fieldValue);
             } else {
@@ -75,9 +79,10 @@ class JobController
                 }
             }
             extract($sanitizedData);
-            $q1 = 'insert into jobs (title, description, open_vacancies, level, exp_years, city_id, location_type, salary_max, salary_min, gender, emp_type, category_id, requirements) values (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+            $q1 = 'insert into jobs (title, org_id, description, open_vacancies, level, exp_years, city_id, location_type, salary_max, salary_min, gender, emp_type, category_id, requirements) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
             $this->db->query($q1, [
                 $title,
+                $org_id,
                 $description,
                 $vacancies,
                 $level,
@@ -102,6 +107,8 @@ class JobController
                 ]);
             }
 
+
+            Session::set('successMessage', 'Job Created Successfully');
             redirect("/jobs/show?id=$insertedJobId");
         }
     }
@@ -115,7 +122,7 @@ class JobController
         $companyQ = 'select name, info from organizations where id=?';
         $job = $this->db->query($jobQ, [$id])->fetch(PDO::FETCH_ASSOC);
         $skills = $this->db->query($skillsQ, [$id])->fetchAll(PDO::FETCH_ASSOC);
-        $company = $this->db->query($companyQ, [$job['org_id']])->fetchAll(PDO::FETCH_ASSOC);
+        $company = $this->db->query($companyQ, [$job['org_id']])->fetch(PDO::FETCH_ASSOC);
 
         $job['description'] = $job['description'] ? explode("\r\n", $job['description']) : $job['description'];
         $job['requirements'] = $job['requirements'] ? explode("\r\n", $job['requirements']) : $job['requirements'];
@@ -213,7 +220,14 @@ class JobController
             return;
         }
 
+
+        if (!Authorization::isOwner($job['org_id'])) {
+            Session::set('errorMessage', 'You are not authorized to delete this job');
+            return redirect("/jobs/show?id={$job['id']}");
+        }
+
         $this->db->query('delete from jobs where id = ?', [$id]);
+        Session::set('successMessage', 'Job Deleted Successfully');
         redirect('/jobs');
     }
 
@@ -221,6 +235,11 @@ class JobController
     {
         $id = $_GET['id'];
         $job = $this->db->query('select * from jobs where id = ?', [$id])->fetch(PDO::FETCH_ASSOC);
+
+        if (!Authorization::isOwner($job['org_id'])) {
+            Session::set('errorMessage', 'You are not authorized to delete this job');
+            return redirect("/jobs/show?id={$job['id']}");
+        }
 
         $selectedJobSkillsIds = [];
         $jobSkillsIds = $this->db->query('select skill_id from jobs_skills where job_id = ?', [$id])->fetchAll(PDO::FETCH_ASSOC);
@@ -242,6 +261,11 @@ class JobController
     {
         $id = $_GET['id'];
         $job = $this->db->query('select * from jobs where id = ?', [$id])->fetch(PDO::FETCH_ASSOC);
+
+        if (!Authorization::isOwner($job['org_id'])) {
+            Session::set('errorMessage', 'You are not authorized to edit this job');
+            return redirect("/jobs/show?id={$job['id']}");
+        }
 
         $selectedJobSkillsIds = [];
         $jobSkillsIds = $this->db->query('select skill_id from jobs_skills where job_id = ?', [$id])->fetchAll(PDO::FETCH_ASSOC);
@@ -309,8 +333,8 @@ class JobController
                     $skill_id
                 ]);
             }
-
-            redirect('/jobs');
+            Session::set('successMessage', 'Job Updated Successfully');
+            redirect("/jobs/show?id=$id");
         }
     }
 

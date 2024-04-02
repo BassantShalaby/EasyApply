@@ -24,6 +24,7 @@ loadPartial("navbar");
 <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="row gy-5 gx-4">
+            <?= loadPartial('flashMessage') ?>
             <div class="col-lg-8">
                 <div class="d-flex align-items-baseline justify-content-between mb-5">
                     <div class="text-start ps-3 pe-5">
@@ -45,14 +46,17 @@ loadPartial("navbar");
                             </span>
                         <?php endif; ?>
                     </div>
-                    <div>
-                        <a class="btn btn-primary" href="/jobs/edit?id=<?= $job['id'] ?>">Edit</a>
 
-                        <form class="d-inline" action="/jobs/destroy?id=<?= $job['id'] ?>" method="POST">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
+                    <?php if (Framework\Authorization::isOwner($job['org_id'])): ?>
+                        <div>
+                            <a class="btn btn-primary" href="/jobs/edit?id=<?= $job['id'] ?>">Edit</a>
+
+                            <form class="d-inline" action="/jobs/destroy?id=<?= $job['id'] ?>" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    <?php endif ?>
                 </div>
 
                 <div class="mb-5 mx-5">
@@ -160,12 +164,24 @@ loadPartial("navbar");
                     </p>
 
                 </div>
+<<<<<<< HEAD
                 <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
                     <h4 class="mb-4">Company Details</h4>
                     <p class="m-0">Ipsum dolor ipsum accusam stet et et diam dolores, sed rebum sadipscing elitr
                         vero dolores. Lorem dolore elitr justo et no gubergren sadipscing, ipsum et takimata
                         aliquyam et rebum est ipsum lorem diam. Et lorem magna eirmod est et et sanctus et, kasd
                         clita labore.</p>
+=======
+                <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
+                    <h4 class="mb-4">Company Detail</h4>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>
+                        <span class="fw-bold">Company Name:</span>
+                        <?= $company['name'] ?>
+                    </p>
+                    <p class="m-0 text-wrap text-break">
+                        <?= $company['info'] ?>
+                    </p>
+>>>>>>> b08464f ("adding auth")
                 </div>
             </div>
 
