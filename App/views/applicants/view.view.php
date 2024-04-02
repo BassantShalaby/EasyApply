@@ -195,8 +195,8 @@ loadPartial("navbar");
             <hr>
             <!-- <div class="row"> -->
             <div class="col">
-                <a href="/applicants/edit?id=<?= $applicant['id'] ?>" type="button" class="btn btn-secondary">Edit
-                    Settings</a>
+                <button href="/applicants/edit?id=<?= $applicant['id'] ?>" type="button" disabled class="btn btn-secondary">Edit
+                    Settings</button>
                 <a href="/applicants/jobs?id=<?= $applicant['id'] ?>" type="button" class="btn btn-success">Jobs
                     Applied</a>
 

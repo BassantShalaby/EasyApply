@@ -136,7 +136,7 @@ loadPartial("navbar");
 
             <!-- <div class="row"> -->
             <div class="col">
-                <a href="/organizations/edit?id=<?= $organization['id'] ?>" type="button" class="btn btn-secondary">Edit Settings</a>
+                <button href="/organizations/edit?id=<?= $organization['id'] ?>" type="button" class="btn btn-secondary" disabled>Edit Settings</button>
                 <a href="/organizations/jobs?id=<?= $organization['id'] ?>" type="button" class="btn btn-success">Show Jobs</a>
 
             </div>

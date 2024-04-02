@@ -24,7 +24,7 @@ class OrganizationController
 
     public function show()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $org = $this->db->query('SELECT * FROM organizations WHERE id =' . $id . '')->fetch();
         $org_city = $this->db->query('select ci.name from organizations o join cities ci ON ci.id = o.city_id
         where o.id=' . $id . ';')->fetch();
@@ -46,18 +46,12 @@ class OrganizationController
 
     public function edit()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $org = $this->db->query('SELECT * FROM organizations WHERE id =' . $id . '')->fetch();
         $org_city = $this->db->query('select ci.name from organizations o join cities ci ON ci.id = o.city_id
         where o.id=' . $id . ';')->fetch();
         $org_country = $this->db->query('select c.name from organizations o join countries c ON c.id = o.country_id
         where o.id=' . $id . ';')->fetch();
-        // $countries = $this->db->query("SHOW COLUMNS FROM users WHERE Field = 'room'");
-        // $cities =  $this->db->query("SHOW COLUMNS FROM users WHERE Field = 'room'");
-        // if ($countries->num_rows > 0) {
-        //     $row = $countries->fetch_assoc();
-        //     $enum_values = explode(",", str_replace("'", "", substr($row['Type'], 5, -1)));
-        // }
         view('organizations/edit', [
             'org' => $org,
             'org_city' => $org_city,
@@ -67,7 +61,7 @@ class OrganizationController
 
     public function jobs()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $org = $this->db->query('SELECT * FROM organizations WHERE id =' . $id . '')->fetch();
         $org_jobs = $this->db->query('select * from jobs j join organizations o on j.org_id = o.id
         where o.id=' . $id . ';')->fetchAll();
@@ -81,7 +75,7 @@ class OrganizationController
 
     public function applications()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $job = $this->db->query('SELECT * FROM jobs WHERE id =' . $id . '')->fetch();
         $applications = $this->db->query('SELECT
         a.id as applicant_id,

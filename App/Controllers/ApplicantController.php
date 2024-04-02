@@ -24,7 +24,7 @@ class ApplicantController
 
     public function show()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $applicant = $this->db->query('SELECT * FROM applicants WHERE id =' . $id . '')->fetch();
         $applicant_city = $this->db->query('select ci.name from applicants a join cities ci ON ci.id = a.city_id
         where a.id=' . $id . ';')->fetch();
@@ -56,16 +56,14 @@ class ApplicantController
 
     public function edit()
     {
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $applicant = $this->db->query('SELECT * FROM applicants WHERE id =' . $id . '')->fetch();
-
         view('applicants/edit');
     }
 
     public function jobs()
     {
-        $id = $_GET['id'];
-        // $org = $this->db->query('SELECT * FROM organizations WHERE id =' . $id . '')->fetch();
+        $id = $_SESSION['id'];
         $jobs = $this->db->query('SELECT
         CONCAT(a.first_name, " ", a.last_name) AS applicant_name,
         j.*,
@@ -87,19 +85,8 @@ class ApplicantController
         ]);
     }
 
-    public function update()
-    {
-    }
-
-
-    public function delete()
-    {
-    }
-
-
     function Create()
     {
-
         $countries = $this->db->query('SELECT id, name FROM countries')->fetchAll();
         $countriesSelect = '<select class="form-select" name="country" id="country" required>';
         $countriesSelect .= '<option selected disabled>Choose a country</option>';
@@ -128,14 +115,7 @@ class ApplicantController
             'cities' => $citiesSelect,
             'skills' => $skillsSelect,
             'name' => ''
-
         ]);
-
-
-
-
-
-
     }
     function Store()
     {

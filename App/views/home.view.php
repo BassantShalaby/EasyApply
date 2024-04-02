@@ -20,10 +20,10 @@ loadPartial("navbar");
                             <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum
                                 dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd
                                 rebum sea elitr.</p>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search
+                            <a href="/jobs" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search
                                 A Job</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
-                                Talent</a>
+                            <!-- <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
+                                Talent</a> -->
                         </div>
                     </div>
                 </div>
@@ -41,10 +41,10 @@ loadPartial("navbar");
                             <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum
                                 dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd
                                 rebum sea elitr.</p>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search
+                            <a href="/jobs" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search
                                 A Job</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
-                                Talent</a>
+                            <!-- <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
+                                Talent</a> -->
                         </div>
                     </div>
                 </div>
@@ -67,62 +67,17 @@ loadPartial("search");
     <div class="container">
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
         <div class="row g-4">
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                    <h6 class="mb-3">Marketing</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                    <h6 class="mb-3">Customer Service</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                    <h6 class="mb-3">Human Resource</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                    <h6 class="mb-3">Project Management</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-chart-line text-primary mb-4"></i>
-                    <h6 class="mb-3">Business Development</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                    <h6 class="mb-3">Sales & Communication</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>
-                    <h6 class="mb-3">Teaching & Education</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                <a class="cat-item rounded p-4" href="">
-                    <i class="fa fa-3x fa-drafting-compass text-primary mb-4"></i>
-                    <h6 class="mb-3">Design & Creative</h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
+            <?php foreach ($categories as $category): ?>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <a class="cat-item rounded p-4" href="/category/show?id=<?= $category['id'] ?>">
+                        <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
+                        <h6 class="mb-3">
+                            <?= $category['name'] ?>
+                        </h6>
+                        <p class="mb-0">123 Vacancy</p>
+                    </a>
+                </div>
+            <?php endforeach ?>
         </div>
     </div>
 </div>
@@ -188,7 +143,47 @@ loadPartial("search");
                     </a>
                 </li>
             </ul>
-            <div class="tab-content">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
+                <?php foreach ($jobs as $job): ?>
+                    <div class="job-item p-4 mb-4">
+                        <div class="row g-4">
+                            <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                <div class="text-start ps-4">
+                                    <h5 class="mb-3">
+                                        <?= $job['title'] ?>
+                                    </h5>
+                                    <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                        <?= "{$job['city_name']}, {$job['country_name']}" ?>
+                                    </span>
+                                    <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>
+                                        <?= $job['emp_type'] ?>
+                                    </span>
+                                    <?php if ($job['salary_min']): ?>
+                                        <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>
+                                            <?= '$' . formatSalary($job['salary_min']) ?>
+                                            -
+                                            <?= '$' . formatSalary($job['salary_max']) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div
+                                class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                <div class="d-flex mb-3">
+                                    <a class="btn btn-primary" href="/jobs/show?id=<?= $job['id'] ?>">Details</a>
+                                </div>
+                                <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>
+                                    Date Line:
+                                    <?= date('d M, Y', strtotime($jobs[0]['created_at'])) ?>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
+            </div>
+            <!-- <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
                     <div class="job-item p-4 mb-4">
                         <div class="row g-4">
@@ -648,7 +643,7 @@ loadPartial("search");
                     </div>
                     <a class="btn btn-primary py-3 px-5" href="/jobs">Browse More Jobs</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

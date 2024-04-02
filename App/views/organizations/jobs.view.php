@@ -72,10 +72,6 @@ loadPartial("navbar");
                                 <a class="btn btn-dark me-3 rounded-1"
                                     href="/organizations/job-apps?id=<?= $job['id'] ?>">Applications</a>
                                 <a class="btn btn-secondary me-3 rounded-1" href="/jobs/edit?id=<?= $job['id'] ?>">Edit</a>
-                                <form class="d-inline" action="/jobs/destroy?id=<?= $job['id'] ?>" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger rounded-1">Delete</button>
-                                </form>
                             </div>
                             <div class="d-flex mb-3">
                                 <small class="text-truncate me-3">

@@ -52,7 +52,7 @@ class LoginController
         $applicant = $this->db->query('select * from applicants where email = :email', $params)->fetch();
         if (empty($org) && empty($applicant)) {
 
-            $errors[] = "ًWrong email or passwordddd";
+            $errors[] = "ًWrong email or password";
             view('auth/login', [
                 'errors' => $errors,
                 'email' => $email,
@@ -63,7 +63,7 @@ class LoginController
 
         if ($org && !password_verify($pass, $org['password'])) {
             $errors[] = "ًWrong email or password";
-             return view('auth/login', [
+            return view('auth/login', [
                 'errors' => $errors,
                 'email' => $email,
                 'pass' => $pass,
@@ -85,7 +85,7 @@ class LoginController
             Session::set('token', $org['token']);
             Session::set('id', $org['id']);
             Session::set('account', 'organization');
-            header('Location:/');
+            header('Location:/organizations/jobs');
             exit;
         }
         if ($applicant && password_verify($pass, $applicant['password'])) {
@@ -96,13 +96,6 @@ class LoginController
             header('Location:/');
             exit;
         }
-
-
-
-        //  else {
-
-        //     }
-        //  }
 
     }
 }
