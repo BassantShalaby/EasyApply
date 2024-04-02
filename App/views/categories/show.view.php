@@ -13,7 +13,7 @@ loadPartial("navbar");
        
         <?php if (!empty($categoryJobs)): ?>
 
-            <div>
+            <!-- <div>
             <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
                 <li class="nav-item">
                     <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
@@ -32,7 +32,7 @@ loadPartial("navbar");
                     </a>
                 </li>
             </ul>
-            </div>
+            </div> -->
                
             <?php foreach($categoryJobs as $job): ?>
 
@@ -67,9 +67,6 @@ loadPartial("navbar");
                     <h3 class="text-danger">There are no jobs available for this category.</h3>
                 </div>
             <?php endif ?>
-
-
-
         </div>
     </div>
 </div>

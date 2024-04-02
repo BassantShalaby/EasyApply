@@ -29,7 +29,7 @@ class CategoryController
         $dp = new Database($config);
 
         $categoryName = $dp->query('SELECT name FROM categories WHERE id = ' . $id)->fetchColumn();
-        $categoryJobs = $dp->query('
+        $categoryJobs = $dp->query("
         SELECT 
             j.*, 
             c.name AS city_name, 
@@ -41,7 +41,7 @@ class CategoryController
         JOIN 
             countries co ON c.country_id = co.id 
         WHERE 
-            j.category_id = ' . $id . 'AND expiry_date > NOW();')->fetchAll();
+            j.category_id =  $id ")->fetchAll();
         // $categoryJobs = $dp->query('SELECT * FROM jobs WHERE id = ' . $id . ' AND expiry_date < CURDATE()')->fetchAll();
         loadPartial('category', ['categoryJobs' => $categoryJobs]);
         view('categories/show', ['categoryJobs' => $categoryJobs, 'categoryName' => $categoryName]);
