@@ -72,7 +72,7 @@ class OrganizationController
         $org_jobs = $this->db->query('select * from jobs j join organizations o on j.org_id = o.id
         where o.id=' . $id . ';')->fetchAll();
         view('organizations/jobs', [
-            'organization' => $org,
+            'org' => $org,
             'jobs' => $org_jobs,
         ]);
 

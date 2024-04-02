@@ -8,7 +8,7 @@ loadPartial("navbar");
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">
+            <li class="breadcrumb-item text-capitalize"><a href="javascript:void(0)">
                     <?= $applicant['first_name'] . ' ' . $applicant['last_name'] . ' Profile' ?>
                 </a></li>
         </ol>
@@ -18,10 +18,10 @@ loadPartial("navbar");
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="<?= basePath('public/').$applicant['picture']?>" alt="Admin" class="rounded-circle"
+                        <img src="/<?= $applicant['picture'] ?>" alt="Admin" class="rounded-circle"
                             width="150">
-                        <div class="mt-3">
-                            <h4>
+                        <div class="mt-3 w-75">
+                            <h4 class="text-capitalize">
                                 <?= $applicant['first_name'] . ' ' . $applicant['last_name'] ?>
                             </h4>
                             <p class="text-secondary mb-1">
@@ -30,9 +30,12 @@ loadPartial("navbar");
                             <p class="text-muted font-size-sm">
                                 <?= $applicant['email'] ?>
                             </p>
-                            <p class="text-muted font-size-sm  text-wrap">
-                                <?= $applicant['bio'] ?>
-                            </p>
+                            <div class="w-100 text-wrap text-left">
+                                <p class="text-muted font-size-sm">
+                                    <?= $applicant['bio'] ?>
+                                </p>
+                            </div>
+
                             <p class="text-muted font-size-sm">
                                 <?= $applicant_city[0] . ' , ' . $applicant_country[0] ?>
                             </p>
@@ -70,7 +73,7 @@ loadPartial("navbar");
                         <div class="col-sm-3">
                             <h6 class="mb-0">First Name</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div class="col-sm-9 text-secondary text-capitalize">
                             <?= $applicant['first_name'] ?>
                         </div>
                     </div>
@@ -79,7 +82,7 @@ loadPartial("navbar");
                         <div class="col-sm-3">
                             <h6 class="mb-0">Last Name</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div class="col-sm-9 text-secondary text-capitalize">
                             <?= $applicant['last_name'] ?>
                         </div>
                     </div>
@@ -180,7 +183,7 @@ loadPartial("navbar");
                         </div>
                         <div class="col-sm-9 text-secondary">
                             <?= $applicant['cv'] ?>
-                            <a href="" download>
+                            <a href="/<?= $applicant['cv'] ?>" download>
                                 <button type="submit" class="btn btn-outline-secondary mx-2">
                                     Download CV
                                 </button>
@@ -192,8 +195,10 @@ loadPartial("navbar");
             <hr>
             <!-- <div class="row"> -->
             <div class="col">
-                <a href="/applicants/edit?id=<?= $applicant['id'] ?>" type="button" class="btn btn-secondary">Edit Settings</a>
-                <a href="/applicants/jobs?id=<?= $applicant['id'] ?>" type="button" class="btn btn-success">Jobs Applied</a>
+                <a href="/applicants/edit?id=<?= $applicant['id'] ?>" type="button" class="btn btn-secondary">Edit
+                    Settings</a>
+                <a href="/applicants/jobs?id=<?= $applicant['id'] ?>" type="button" class="btn btn-success">Jobs
+                    Applied</a>
 
             </div>
             <!-- </div> -->

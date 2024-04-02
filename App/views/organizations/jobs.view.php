@@ -8,7 +8,7 @@ loadPartial("navbar");
 <!-- Header End -->
 <div class="container-fluid py-5 bg-dark page-header mb-5">
     <div class="container my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Job List</h1>
+        <h2 class="display-3 text-white mb-3 animated slideInDown">Organization's Jobs List</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-uppercase">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -24,13 +24,15 @@ loadPartial("navbar");
 <!-- Jobs Start -->
 <div class="container-fluid py-5">
     <div class="container">
-        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+        <h2 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <?= $org['name'] ?>'s&nbsp;&nbsp;Jobs Listing
+        </h2>
         <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
             <?php foreach ($jobs as $job): ?>
                 <div class="job-item p-4 mb-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                            <img class="flex-shrink-0 img-fluid border rounded" src="/img/com-logo-1.jpg" alt=""
+                            <img class="flex-shrink-0 img-fluid border rounded" src="/<?= $org['logo'] ?>" alt=""
                                 style="width: 80px; height: 80px;">
                             <div class="text-start ps-4">
                                 <h5 class="mb-3">
@@ -65,11 +67,15 @@ loadPartial("navbar");
                         </div>
                         <div
                             class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                            <div class="d-flex mb-3">                          
+                            <div class="d-flex mb-3">
                                 <a class="btn btn-success me-3 rounded-1" href="/jobs/show?id=<?= $job['id'] ?>">Details</a>
-                                <a class="btn btn-dark me-3 rounded-1" href="/organizations/job-apps?id=<?= $job['id'] ?>">Applications</a>
+                                <a class="btn btn-dark me-3 rounded-1"
+                                    href="/organizations/job-apps?id=<?= $job['id'] ?>">Applications</a>
                                 <a class="btn btn-secondary me-3 rounded-1" href="/jobs/edit?id=<?= $job['id'] ?>">Edit</a>
-                                <a class="btn btn-danger rounded-1" href="/jobs/delete?id=<?= $job['id'] ?>">Delete</a>
+                                <form class="d-inline" action="/jobs/destroy?id=<?= $job['id'] ?>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger rounded-1">Delete</button>
+                                </form>
                             </div>
                             <div class="d-flex mb-3">
                                 <small class="text-truncate me-3">

@@ -22,7 +22,8 @@ CREATE TABLE organizations (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    token varchar(255) NOT NULL,
 	phone VARCHAR(20) NOT NULL,
 	link VARCHAR(255),
     country_id BIGINT UNSIGNED,
@@ -201,10 +202,10 @@ INSERT INTO cities (name, country_id) VALUES
 ('Port said', 7),
 ('Sohag', 7);
 
-INSERT INTO organizations (name, email, password, phone, link, country_id, city_id, industry, logo, info) VALUES
-('Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '+123456789', NULL, 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider'),
-('Global Enterprises', 'contact@globent.com', 'password2', '+987654321', NULL, 2, 2, 'Consulting', 'logo2.png', 'International consulting firm'),
-('ABC Corporation', 'info@abccorp.com', 'password3', '+1122334455', NULL, 3, 3, 'Finance', 'logo3.png', 'Financial services company');
+INSERT INTO organizations (name, email, password,token, phone, link, country_id, city_id, industry, logo, info) VALUES
+('Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '123','+123456789', NULL, 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider'),
+('Global Enterprises', 'contact@globent.com', 'password2', '123', '+987654321', NULL, 2, 2, 'Consulting', 'logo2.png', 'International consulting firm'),
+('ABC Corporation', 'info@abccorp.com', 'password3', '123', '+1122334455', NULL, 3, 3, 'Finance', 'logo3.png', 'Financial services company');
 
 INSERT INTO skills (name) VALUES
 ('Programming'),

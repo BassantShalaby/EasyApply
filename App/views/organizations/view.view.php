@@ -18,7 +18,7 @@ loadPartial("navbar");
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="/img/com-logo-1.jpg" alt="Admin" class="rounded-circle"
+                        <img src="/<?= $organization['logo'] ?>" alt="Admin" class="rounded-circle"
                             width="150">
                         <div class="mt-3">
                             <h4>
