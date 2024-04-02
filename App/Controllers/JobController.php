@@ -173,8 +173,9 @@ class JobController
             $this->db->query($query, $data);
     
             // Redirect to a success page or do other actions upon successful insertion
-            View('/jobs/index');
-            exit();
+            redirect('/jobs');            
+            // exit();
+            
         } catch (\Exception $e) {
             // Handle database insertion error
             echo "An error occurred: " . $e->getMessage();

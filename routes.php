@@ -7,8 +7,6 @@ $router->get('/contact', 'ContactController@index');
 //--------------------
 //apply routes
 //--------------------
-$router->get('/apply', 'ApplyController@index');
-$router->post('/apply', 'ApplyController@send_applied_job');
 
 //--------------------
 //category routes
@@ -28,6 +26,7 @@ $router->put('/jobs/update', 'JobController@update');
 $router->get('/jobs/show', 'JobController@show');
 $router->get('/jobs/create', 'JobController@create');
 $router->get('/jobs/search', 'JobController@search');
+$router->post('/jobs/show', 'JobController@send_applied_job');
 
 //--------------------
 //Auth routes
