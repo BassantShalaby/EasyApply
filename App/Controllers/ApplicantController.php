@@ -35,7 +35,7 @@ class ApplicantController
         c.name AS category_name
         FROM applicants a
         JOIN
-        applicant_skills aps ON a.id = aps.applicant_id
+        applicants_skills aps ON a.id = aps.applicant_id
         JOIN
         skills_categories sc ON aps.skill_id = sc.skill_id
         JOIN
@@ -401,7 +401,7 @@ class ApplicantController
                 move_uploaded_file($file_tmp, $destination);
 
                 // Store the file's name (or path) in your database
-                $pp = $destination;
+                $cv = $destination;
 
             } else {
                 $errors[] = "Only PDF CVs are allowed.";
@@ -491,8 +491,8 @@ class ApplicantController
             'city' => $_POST['city'],
             'pass' => password_hash($pass1, PASSWORD_DEFAULT),
             'info' => $info,
-            'cv' => $_FILES['cv']['name'],
-            'pp' => $_FILES['pp']['name'],
+            'cv' => $cv,
+            'pp' => $pp,
             'phone' => $phone,
             'title' => $title,
             'exp_lvl' => $exp_lvl,

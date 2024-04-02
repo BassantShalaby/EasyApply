@@ -249,7 +249,7 @@ class JobController
 
         $query = "SELECT * FROM jobs 
             WHERE (title LIKE :keywords OR description LIKE :keywords OR job_status LIKE :keywords 
-                   OR experience LIKE :keywords OR location_type LIKE :keywords OR gender LIKE :keywords 
+                   OR level LIKE :keywords OR location_type LIKE :keywords OR gender LIKE :keywords 
                    OR emp_type LIKE :keywords) 
             AND (city_id IN (SELECT id FROM cities WHERE name LIKE :location) 
                  OR country_id IN (SELECT id FROM countries WHERE name LIKE :location))";

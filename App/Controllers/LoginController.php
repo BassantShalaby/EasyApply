@@ -85,7 +85,7 @@ class LoginController
             Session::set('token', $org['token']);
             Session::set('id', $org['id']);
             Session::set('account', 'organization');
-            header('Location:/home/organization');
+            header('Location:/');
             exit;
         }
         if ($applicant && password_verify($pass, $applicant['password'])) {
@@ -93,7 +93,7 @@ class LoginController
             Session::set('token', $applicant['token']);
             Session::set('id', $applicant['id']);
             Session::set('account', 'applicant');
-            header('Location:/home/applicant');
+            header('Location:/');
             exit;
         }
 
