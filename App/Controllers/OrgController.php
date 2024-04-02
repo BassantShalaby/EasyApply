@@ -69,9 +69,9 @@ class OrgController
         $link = $_POST['link'];
         $logo = $_FILES['logo'];
 
-        // if (isset($_POST['country'])) {
-        $country = $_POST['country'];
-        // }
+        if (isset($_POST['country'])) {
+            $country = $_POST['country'];
+        }
         if (isset($_POST['city'])) {
             $city = $_POST['city'];
         }
@@ -129,7 +129,7 @@ class OrgController
 
 
         $errors = [];
-        if (!Validation::string($name)) {
+        if (!Validation::string($name) && empty($errors)) {
             $errors[] = 'Organization name is required';
         }
 
@@ -143,7 +143,7 @@ class OrgController
         if (!Validation::email($email) && empty($errors)) {
             $errors[] = 'Please enter a valid email address';
         }
-        if (!Validation::string($pass1, 8, 50)) {
+        if (!Validation::string($pass1, 8, 50) && empty($errors)) {
             $errors[] = 'Password must be at least 8 charachters';
         }
         if ((!Validation::string($pass1) || !Validation::string($pass2)) && empty($errors)) {
@@ -173,13 +173,13 @@ class OrgController
         if (!Validation::string($link) && empty($errors)) {
             $errors[] = 'Organization website or linkedin account are required';
         }
-        if (empty($country) && empty($errors)) {
+        if (!isset($_POST['country']) && empty($errors)) {
             $errors[] = 'Country is required';
         }
-        if (empty($city) && empty($errors)) {
+        if (empty($_POST['city']) && empty($errors)) {
             $errors[] = 'City is required';
         }
-        if (empty($industry) && empty($errors)) {
+        if (empty($_POST['industry']) && empty($errors)) {
             $errors[] = 'Organization industry is required';
         }
         // Check if a file is uploaded
@@ -231,8 +231,7 @@ class OrgController
         ];
         $org = $this->db->query('select * from organizations where email = :email', $params)->fetchAll();
         $applicant = $this->db->query('select * from applicants where email = :email', $params)->fetchAll();
-        // dump(count($org));
-        // dd(count($applicant)>0);
+
         if (count($org) > 0 || count($applicant) > 0) {
             $errors[] = "This email is already registered";
             view('auth/org-create', [
@@ -262,7 +261,7 @@ class OrgController
             'city' => $_POST['city'],
             'industry' => $_POST['industry'],
             'logo' => $logo,
-            'token' => md5(uniqid(). rand(1000000, 9999999))
+            'token' => md5(uniqid() . rand(1000000, 9999999))
         ];
 
         // Assuming `country_id` and `city_id` are the correct column names in your database

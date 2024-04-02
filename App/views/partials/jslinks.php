@@ -7,6 +7,7 @@
 
 <script src="/js/main.js"></script>
 <script src="/js/location.js"></script>
+<script src="/js/applicant.js"></script>
 </body>
 
 </html>

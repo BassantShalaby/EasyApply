@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2024 at 11:01 AM
+-- Generation Time: Apr 01, 2024 at 09:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,7 +35,7 @@ CREATE TABLE `applicants` (
   `email` varchar(100) NOT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
   `city_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `bio` text DEFAULT NULL,
   `cv` varchar(255) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `applicants` (
   `experience` enum('entry-level','junior','mid-level','senior','lead') DEFAULT NULL,
   `exp_years` int(11) DEFAULT NULL,
   `gender` enum('male','female') DEFAULT NULL,
-  `token` VARCHAR(255) NOT NULLو
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -53,9 +53,9 @@ CREATE TABLE `applicants` (
 -- Dumping data for table `applicants`
 --
 
-INSERT INTO `applicants` (`id`, `first_name`, `last_name`, `birthdate`, `email`, `country_id`, `city_id`, `password`, `bio`, `cv`, `picture`, `phone`, `title`, `experience`, `exp_years`, `gender`, `created_at`, `updated_at`) VALUES
-(1, 'John', 'Doe', '1990-05-15', 'john.doe@example.com', 1, 1, 'password', 'Experienced software engineer', 'cv.pdf', 'john.jpg', '+123456789', 'Software Engineer', 'senior', 5, 'male', '2024-04-01 08:59:16', '2024-04-01 08:59:16'),
-(2, 'Jane', 'Smith', '1995-08-20', 'jane.smith@example.com', 2, 2, 'password', 'Recent graduate seeking entry-level position', 'resume.doc', 'jane.jpg', '+987654321', 'Graduate', 'entry-level', 0, 'female', '2024-04-01 08:59:16', '2024-04-01 08:59:16');
+INSERT INTO `applicants` (`id`, `first_name`, `last_name`, `birthdate`, `email`, `country_id`, `city_id`, `password`, `bio`, `cv`, `picture`, `phone`, `title`, `experience`, `exp_years`, `gender`, `token`, `created_at`, `updated_at`) VALUES
+(1, 'John', 'Doe', '1990-05-15', 'john.doe@example.com', 1, 1, 'password', 'Experienced software engineer', 'cv.pdf', 'john.jpg', '+123456789', 'Software Engineer', 'senior', 5, 'male', '0', '2024-04-01 08:59:16', '2024-04-01 08:59:16'),
+(2, 'Jane', 'Smith', '1995-08-20', 'jane.smith@example.com', 2, 2, 'password', 'Recent graduate seeking entry-level position', 'resume.doc', 'jane.jpg', '+987654321', 'Graduate', 'entry-level', 0, 'female', '0', '2024-04-01 08:59:16', '2024-04-01 08:59:16');
 
 -- --------------------------------------------------------
 
@@ -279,7 +279,7 @@ CREATE TABLE `organizations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `link` varchar(255) DEFAULT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -287,7 +287,7 @@ CREATE TABLE `organizations` (
   `industry` varchar(100) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
   `info` text DEFAULT NULL,
-  `token` VARCHAR(255) NOT NULLو
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -296,10 +296,14 @@ CREATE TABLE `organizations` (
 -- Dumping data for table `organizations`
 --
 
-INSERT INTO `organizations` (`id`, `name`, `email`, `password`, `phone`, `link`, `country_id`, `city_id`, `industry`, `logo`, `info`, `created_at`, `updated_at`) VALUES
-(1, 'Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '+123456789', NULL, 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider', '2024-04-01 08:55:00', '2024-04-01 08:55:00'),
-(2, 'Global Enterprises', 'contact@globent.com', 'password2', '+987654321', NULL, 2, 2, 'Consulting', 'logo2.png', 'International consulting firm', '2024-04-01 08:55:00', '2024-04-01 08:55:00'),
-(3, 'ABC Corporation', 'info@abccorp.com', 'password3', '+1122334455', NULL, 3, 3, 'Finance', 'logo3.png', 'Financial services company', '2024-04-01 08:55:00', '2024-04-01 08:55:00');
+INSERT INTO `organizations` (`id`, `name`, `email`, `password`, `phone`, `link`, `country_id`, `city_id`, `industry`, `logo`, `info`, `token`, `created_at`, `updated_at`) VALUES
+(1, 'Tech Solutions Inc.', 'info@techsolutions.com', 'password1', '+123456789', NULL, 1, 1, 'Technology', 'logo1.png', 'Leading technology solutions provider', '', '2024-04-01 08:55:00', '2024-04-01 08:55:00'),
+(2, 'Global Enterprises', 'contact@globent.com', 'password2', '+987654321', NULL, 2, 2, 'Consulting', 'logo2.png', 'International consulting firm', '', '2024-04-01 08:55:00', '2024-04-01 08:55:00'),
+(3, 'ABC Corporation', 'info@abccorp.com', 'password3', '+1122334455', NULL, 3, 3, 'Finance', 'logo3.png', 'Financial services company', '', '2024-04-01 08:55:00', '2024-04-01 08:55:00'),
+(4, 'ssssssss', 'testtt@gmail.com', '$2y$10$Ob097gzYUp8nA', '+12345678997690', 'http://www.easyapply.local/org-create', 5, 9, 'Hospitality', 'uploads/Screenshot_107.png', 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', '', '2024-04-01 09:48:29', '2024-04-01 09:48:29'),
+(5, 'Instagram', 'insta@insta.com', '$2y$10$3mTAiT.CbppKq', '+12345678997690', 'http://www.easyapply.local/org-create', 5, 10, 'Entertainment', 'uploads/Screenshot_109.png', 'insta aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'e519bc320c11584e0957a1fb870c3928', '2024-04-01 15:26:56', '2024-04-01 15:26:56'),
+(7, 'mobile', 'heba@gmail.com', '$2y$10$BF7Bq3gZV/Ef5', '+12345678997690', 'http://www.easyapply.local/org-create', 4, 7, 'Real Estate', 'uploads/Screenshot_108.png', 'dwerghtrytrhegsfaaaaaffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffheba@gmail.com', '29ea53f9fa3de6adb18129b74b47683e', '2024-04-01 15:34:42', '2024-04-01 15:34:42'),
+(8, 'faceboocebook.com', 'facebook@facebook.com', '$2y$10$eyZpM0J7XgLUfITeQ98kI.AIRgzEud/N28Gzd0VqQu5u8vt/QnfUO', '+12345678997690', 'https://www.facebook.com/', 3, 6, 'Entertainment', 'uploads/download (3).png', 'facebook@facebook.comfacebook@facebook.comfacebook@facebook.comfacebook@facebook.comfacebook@facebook.comfacebook@facebook.com', '7153044618f7f55e9467c5093fd0959a', '2024-04-01 15:45:11', '2024-04-01 15:45:11');
 
 -- --------------------------------------------------------
 
@@ -479,7 +483,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `organizations`
 --
 ALTER TABLE `organizations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `skills`

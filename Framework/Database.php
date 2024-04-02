@@ -31,4 +31,9 @@ class Database
             throw new Exception("Query failed to execute: {$error->getMessage()}");
         }
     }
+
+    public function lastInsertId()
+    {
+        return $this->connection->lastInsertId();
+    }
 }

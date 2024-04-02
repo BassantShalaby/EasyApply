@@ -49,9 +49,8 @@ class LoginController
 
         $org = $this->db->query('select * from organizations where email = :email', $params)->fetch();
         $applicant = $this->db->query('select * from applicants where email = :email', $params)->fetch();
-        if (!$org && !$applicant) {
-            dump($org);
-            dd($applicant);
+        if (count($org) ==0 && count($applicant)==0) {
+
             $errors[] = "ًWrong email or passwordddd";
             view('auth/login', [
                 'errors' => $errors,
@@ -73,20 +72,20 @@ class LoginController
 
         if ($org && password_verify($pass, $org['password'])) {
             session_start();
-            Session::set('token' , $org->token);
-            Session::set('id' , $org->id);
+            Session::set('token' , $org['token']);
+            Session::set('id' , $org['id']);
             Session::set('account' , 'organization');
             header('Location:/home/organization');
             exit;
         }
-        // if ($org && !password_verify($pass, $org['password'])) {
-        //     session_start();
-        //     Session::set('token' , $org->token);
-        //     Session::set('id' , $org->id);
-        //     Session::set('account' , 'organization');
-        //     header('Location:/home/organization');
-        //     exit;
-        // }
+        if ($applicant && !password_verify($pass, $applicant['password'])) {
+            session_start();
+            Session::set('token' , $applicant->token);
+            Session::set('id' , $applicant->id);
+            Session::set('account' , 'applicant');
+            header('Location:/home/applicant');
+            exit;
+        }
 
 
 

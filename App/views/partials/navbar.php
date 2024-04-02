@@ -20,6 +20,7 @@
             <a href="/contact" class="nav-item nav-link">Contact</a>
             <a href="/signup-type" class="nav-item nav-link">Sign Up</a>
             <a href="/login" class="nav-item nav-link">Log in</a>
+            <a href="/logout" class="nav-item nav-link">Logout</a>
         </div>
         <a href="/jobs/create" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i
                 class="fa fa-arrow-right ms-3"></i></a>

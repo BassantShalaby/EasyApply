@@ -2,6 +2,7 @@
 loadPartial("head");
 // loadPartial("spinner");/
 loadPartial("navbar");
+dump($_SESSION);
 
 dd('organization');
 

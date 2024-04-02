@@ -10,13 +10,26 @@ $router->get('/testimonial', 'TestimonialController@index');
 
 
 //auth routes
+//signup as ....
 $router->get('/signup-type', 'AuthController@Index');
+
+//organization signup
 $router->get('/org-create', 'OrgController@Create');
 $router->post('/org-create', 'OrgController@Store');
-// $router->get('/appl-create', 'AuthController@applCreate');
-// $router->post('/appl-create', 'AuthController@applStore');
+$router->get('/home/organization', 'HomeController@organization');
+
+
+// applicant signup
+$router->get('/appl-create', 'ApplicantController@Create');
+$router->post('/appl-create', 'ApplicantController@Store');
+$router->get('/home/applicant', 'HomeController@applicant');
+
+//login
 $router->get('/login', 'LoginController@Index');
 $router->post('/login', 'LoginController@Login');
+
+//logout
 $router->get('/logout', 'AuthController@Logout');
-$router->get('/home/organization', 'HomeController@organization');
+
+
 

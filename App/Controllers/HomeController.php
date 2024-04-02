@@ -12,4 +12,8 @@ class HomeController
     {
         view('organization');
     }
+    public function applicant()
+    {
+        view('applicant');
+    }
 }
