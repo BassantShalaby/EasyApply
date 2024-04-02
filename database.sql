@@ -1,6 +1,6 @@
 DROP DATABASE easy_apply;
 CREATE DATABASE easy_apply;
-USE easy_apply
+USE easy_apply;
 
 CREATE TABLE countries (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -68,7 +68,7 @@ CREATE TABLE applicants (
     email VARCHAR(100) NOT NULL,
     country_id BIGINT UNSIGNED,
     city_id BIGINT UNSIGNED,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     bio TEXT,
     cv VARCHAR(255),
     picture VARCHAR(255),
@@ -77,6 +77,7 @@ CREATE TABLE applicants (
     experience ENUM('entry-level', 'junior', 'mid-level' , 'senior', 'lead'),
     exp_years INT ,
     gender ENUM('male', 'female'),
+    token varchar(255) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now() on update now(),
     FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -135,7 +136,7 @@ CREATE TABLE applies (
 	id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     applicant_id BIGINT UNSIGNED,
     job_id BIGINT UNSIGNED,
-    status ENUM('pending', 'approved', 'rejected'),
+    status ENUM('applied','pending', 'approved', 'rejected'),
     reason TEXT,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now() on update now(),
@@ -238,9 +239,9 @@ INSERT INTO skills_categories (skill_id, category_id) VALUES
 (4, 2),
 (5, 3);
 
-INSERT INTO applicants (first_name, last_name, birthdate, email, country_id, city_id, password, bio, cv, picture, phone, title, experience, exp_years, gender) VALUES
-('John', 'Doe', '1990-05-15', 'john.doe@example.com', 1, 1, 'password', 'Experienced software engineer', 'cv.pdf', 'john.jpg', '+123456789', 'Software Engineer', 'senior', 5, 'male'),
-('Jane', 'Smith', '1995-08-20', 'jane.smith@example.com', 2, 2, 'password', 'Recent graduate seeking entry-level position', 'resume.doc', 'jane.jpg', '+987654321', 'Graduate', 'entry-level', 0, 'female');
+INSERT INTO applicants (first_name, last_name,token, birthdate, email, country_id, city_id, password, bio, cv, picture, phone, title, experience, exp_years, gender) VALUES
+('John', 'Doe','', '1990-05-15', 'john.doe@example.com', 1, 1, 'password', 'Experienced software engineer', 'cv.pdf', 'john.jpg', '+123456789', 'Software Engineer', 'senior', 5, 'male'),
+('Jane', 'Smith', '','1995-08-20', 'jane.smith@example.com', 2, 2, 'password', 'Recent graduate seeking entry-level position', 'resume.doc', 'jane.jpg', '+987654321', 'Graduate', 'entry-level', 0, 'female');
 
 INSERT INTO applicants_skills (applicant_id, skill_id) VALUES
 (1, 1),
@@ -266,39 +267,3 @@ VALUES
 INSERT INTO applies (applicant_id, job_id, status) VALUES
 (1, 1, 'pending'),
 (2, 2, 'applied');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
