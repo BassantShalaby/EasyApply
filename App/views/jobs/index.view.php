@@ -32,61 +32,60 @@ loadPartial("search");
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Featured Jobs</h1>
 
 
-<?php if (!empty($jobs)): ?>
+        <?php if (!empty($jobs)): ?>
 
-        <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
-<<<<<<< HEAD
-            
-=======
+            <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
 
-            <?= loadPartial('flashMessage') ?>
 
->>>>>>> b08464f ("adding auth")
-            <?php foreach ($jobs as $job): ?>
-                <div class="job-item p-4 mb-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                            <div class="text-start ps-4">
-                                <h5 class="mb-3">
-                                    <?= $job['title'] ?>
-                                </h5>
-                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>
-                                    <?= "{$job['city_name']}, {$job['country_name']}" ?>
-                                </span>
-                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>
-                                    <?= $job['emp_type'] ?>
-                                </span>
-                                <?php if ($job['salary_min']): ?>
-                                    <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>
-                                        <?= '$' . formatSalary($job['salary_min']) ?>
-                                        -
-                                        <?= '$' . formatSalary($job['salary_max']) ?>
+                <?= loadPartial('flashMessage') ?>
+
+                <?php foreach ($jobs as $job): ?>
+                    <div class="job-item p-4 mb-4">
+                        <div class="row g-4">
+                            <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                <div class="text-start ps-4">
+                                    <h5 class="mb-3">
+                                        <?= $job['title'] ?>
+                                    </h5>
+                                    <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                        <?= "{$job['city_name']}, {$job['country_name']}" ?>
                                     </span>
-                                <?php endif; ?>
+                                    <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>
+                                        <?= $job['emp_type'] ?>
+                                    </span>
+                                    <?php if ($job['salary_min']): ?>
+                                        <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>
+                                            <?= '$' . formatSalary($job['salary_min']) ?>
+                                            -
+                                            <?= '$' . formatSalary($job['salary_max']) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                        </div>
-                        <div
-                            class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                            <div class="d-flex mb-3">
-                                <a class="btn btn-primary" href="/jobs/show?id=<?= $job['id'] ?>">Details</a>
+                            <div
+                                class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                <div class="d-flex mb-3">
+                                    <a class="btn btn-primary" href="/jobs/show?id=<?= $job['id'] ?>">Details</a>
+                                </div>
+                                <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>
+                                    Date Line:
+                                    <?= date('d M, Y', strtotime($jobs[0]['created_at'])) ?>
+                                </small>
                             </div>
-                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>
-                                Date Line:
-                                <?= date('d M, Y', strtotime($jobs[0]['created_at'])) ?>
-                            </small>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
 
-            <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
-        </div>
+                <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
+            </div>
         <?php else: ?>
-                <div class="text-center">
-                    <h3 class="text-danger">There are no jobs available contain ( <?= $keywords ?> ) </h3>
-                </div>
-            <?php endif ?>
-        
+            <div class="text-center">
+                <h3 class="text-danger">There are no jobs available contain (
+                    <?= $keywords ?> )
+                </h3>
+            </div>
+        <?php endif ?>
+
     </div>
 </div>
 

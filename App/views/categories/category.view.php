@@ -24,14 +24,16 @@ loadPartial("navbar");
     <div class="container">
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
         <div class="row g-4">
-            <?php foreach($categories as $category): ?>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item rounded p-4" href="/category/show?id=<?= $category['id'] ?>">
-                    <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                    <h6 class="mb-3"><?= $category['name'] ?></h6>
-                    <p class="mb-0">123 Vacancy</p>
-                </a>
-            </div>
+            <?php foreach ($categories as $category): ?>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <a class="cat-item text-center rounded p-4" href="/category/show?id=<?= $category['id'] ?>">
+                        <!-- <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i> -->
+                        <h6 class="mb-3">
+                            <?= $category['name'] ?>
+                        </h6>
+                        <!-- <p class="mb-0"> <?= $category['job_count'] ?> Vacancy</p> -->
+                    </a>
+                </div>
             <?php endforeach ?>
         </div>
     </div>

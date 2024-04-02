@@ -18,8 +18,7 @@ loadPartial("navbar");
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="/<?= $organization['logo'] ?>" alt="Admin" class="rounded-circle"
-                            width="150">
+                        <img src="/<?= $organization['logo'] ?>" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
                             <h4>
                                 <?= $organization['name'] ?>
@@ -128,7 +127,7 @@ loadPartial("navbar");
                             <h6 class="mb-0">Posted Jobs Count</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <?= $org_jobs[0]?>
+                            <?= $org_jobs[0] ?>
                         </div>
                     </div>
                 </div>
@@ -136,16 +135,18 @@ loadPartial("navbar");
 
             <!-- <div class="row"> -->
             <div class="col">
-                <button href="/organizations/edit?id=<?= $organization['id'] ?>" type="button" class="btn btn-secondary" disabled>Edit Settings</button>
-                <a href="/organizations/jobs?id=<?= $organization['id'] ?>" type="button" class="btn btn-success">Show Jobs</a>
+                <button href="/organizations/edit?id=<?= $organization['id'] ?>" type="button" class="btn btn-secondary"
+                    disabled>Edit Settings</button>
+                <a href="/organizations/jobs?id=<?= $organization['id'] ?>" type="button" class="btn btn-success">Show
+                    Jobs</a>
 
             </div>
             <!-- </div> -->
         </div>
     </div>
-
-    <?php
-    loadPartial("footer");
-    loadPartial("back-to-top");
-    loadPartial("jslinks");
-    ?>
+</div>
+<?php
+loadPartial("footer");
+loadPartial("back-to-top");
+loadPartial("jslinks");
+?>

@@ -95,35 +95,41 @@ loadPartial("navbar");
                     <?php endif; ?>
                 </div>
                 <section class="container m-3">
-            <form method="POST" action="/jobs/show?id= <?= $job_id ?>">
-                <?php if (isset($errors)): ?>
-                    <?php foreach ($errors as $error) : ?>
-                        <div class="message bg-red-100 my-3 text-danger"> <?= $error ?> </div>
-                    <?php endforeach;?>
-                <?php endif;?>
+                    <form method="POST" action="/jobs/show?id= <?= $job_id ?>">
+                        <?php if (isset($errors)): ?>
+                            <?php foreach ($errors as $error): ?>
+                                <div class="message bg-red-100 my-3 text-danger">
+                                    <?= $error ?>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
-                <div class="row g-3">                
-                    <div class="col-12">
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a message here" id="reason" name="reason"  style="height: 150px"> <?= $apply['reason'] ?? '' ?> </textarea>
-                            <label for="reason">Reasons</label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                    <?php if (!isset($_SESSION['token'])): ?>
-                        <button class="btn btn-primary w-100 py-3" disabled type="submit">Apply</button>
-                    <?php else: ?>
-                        <?php if ($alreadyApplied): ?>
-                            <button class="btn btn-primary w-100 py-3" disabled type="submit">Already applied</button>
-                        <?php else: ?>
-                            <button class="btn btn-primary w-100 py-3" type="submit">Apply</button>
-                        <?php endif ?>                    
-                    <?php endif ?>
+                        <?php if ((isset($_SESSION['token']) && $_SESSION['account'] == 'applicant')): ?>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a message here" id="reason"
+                                            name="reason" style="height: 150px"> <?= $apply['reason'] ?? '' ?> </textarea>
+                                        <label for="reason">Reasons</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <?php if (!isset($_SESSION['token'])): ?>
+                                        <button class="btn btn-primary w-100 py-3" disabled type="submit">Apply</button>
+                                    <?php else: ?>
+                                        <?php if ($alreadyApplied): ?>
+                                            <button class="btn btn-primary w-100 py-3" disabled type="submit">Already
+                                                applied</button>
+                                        <?php else: ?>
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Apply</button>
+                                        <?php endif ?>
+                                    <?php endif ?>
 
-                    </div>
-                </div>
-            </form>
-        </section>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </form>
+                </section>
             </div>
 
             <div class="col-lg-4">
@@ -164,14 +170,6 @@ loadPartial("navbar");
                     </p>
 
                 </div>
-<<<<<<< HEAD
-                <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
-                    <h4 class="mb-4">Company Details</h4>
-                    <p class="m-0">Ipsum dolor ipsum accusam stet et et diam dolores, sed rebum sadipscing elitr
-                        vero dolores. Lorem dolore elitr justo et no gubergren sadipscing, ipsum et takimata
-                        aliquyam et rebum est ipsum lorem diam. Et lorem magna eirmod est et et sanctus et, kasd
-                        clita labore.</p>
-=======
                 <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
                     <h4 class="mb-4">Company Detail</h4>
                     <p><i class="fa fa-angle-right text-primary me-2"></i>
@@ -181,7 +179,6 @@ loadPartial("navbar");
                     <p class="m-0 text-wrap text-break">
                         <?= $company['info'] ?>
                     </p>
->>>>>>> b08464f ("adding auth")
                 </div>
             </div>
 

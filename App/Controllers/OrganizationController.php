@@ -63,8 +63,8 @@ class OrganizationController
     {
         $id = $_SESSION['id'];
         $org = $this->db->query('SELECT * FROM organizations WHERE id =' . $id . '')->fetch();
-        $org_jobs = $this->db->query('select * from jobs j join organizations o on j.org_id = o.id
-        where o.id=' . $id . ';')->fetchAll();
+        $org_jobs = $this->db->query('select * from jobs where org_id = ?', [$id])->fetchAll(PDO::FETCH_ASSOC);
+        // dd($org_jobs);
         view('organizations/jobs', [
             'org' => $org,
             'jobs' => $org_jobs,
@@ -103,7 +103,7 @@ class OrganizationController
     }
 
     public function updateStatus()
-    {   
+    {
 
         $this->updateApplicationStatus();
         $id = $_GET['id'];
@@ -111,9 +111,10 @@ class OrganizationController
         header("Location: /organizations/job-apps?id=$id");
     }
 
-    public function updateApplicationStatus(){
+    public function updateApplicationStatus()
+    {
 
-        $this->db->query("UPDATE applies SET status = '{$_POST['new_status']}' WHERE applicant_id = {$_POST['applicant_id']}");        
+        $this->db->query("UPDATE applies SET status = '{$_POST['new_status']}' WHERE applicant_id = {$_POST['applicant_id']}");
     }
 
 
