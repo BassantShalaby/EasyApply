@@ -1,6 +1,6 @@
 <?php
 
-$router->get('/', 'HomeController@index');
+$router->get('/', 'HomeController@index' , ['auth']);
 $router->get('/jobs', 'JobController@index');
 $router->get('/jobs/create', 'JobController@create');
 $router->get('/about', 'AboutController@index');

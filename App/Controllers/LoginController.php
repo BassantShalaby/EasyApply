@@ -4,6 +4,7 @@ namespace App\Controllers;
 use Framework\Database;
 use Framework\Validation;
 use Framework\Session;
+use PDOStatement;
 
 class LoginController
 {
@@ -49,7 +50,7 @@ class LoginController
 
         $org = $this->db->query('select * from organizations where email = :email', $params)->fetch();
         $applicant = $this->db->query('select * from applicants where email = :email', $params)->fetch();
-        if (count($org) ==0 && count($applicant)==0) {
+        if (empty($org) && empty($applicant)) {
 
             $errors[] = "ًWrong email or passwordddd";
             view('auth/login', [
@@ -59,30 +60,39 @@ class LoginController
             ]);
             exit;
         }
-        
-        if (($org || $applicant) && !password_verify($pass, $org['password'])) {
+
+        if ($org && !password_verify($pass, $org['password'])) {
             $errors[] = "ًWrong email or password";
-            view('auth/login', [
+             return view('auth/login', [
                 'errors' => $errors,
                 'email' => $email,
                 'pass' => $pass,
             ]);
-            exit;
+            // exit;
+        }
+        if ($applicant && !password_verify($pass, $applicant['password'])) {
+            $errors[] = "ًWrong email or password";
+            return view('auth/login', [
+                'errors' => $errors,
+                'email' => $email,
+                'pass' => $pass,
+            ]);
+            // exit;
         }
 
         if ($org && password_verify($pass, $org['password'])) {
             session_start();
-            Session::set('token' , $org['token']);
-            Session::set('id' , $org['id']);
-            Session::set('account' , 'organization');
+            Session::set('token', $org['token']);
+            Session::set('id', $org['id']);
+            Session::set('account', 'organization');
             header('Location:/home/organization');
             exit;
         }
-        if ($applicant && !password_verify($pass, $applicant['password'])) {
+        if ($applicant && password_verify($pass, $applicant['password'])) {
             session_start();
-            Session::set('token' , $applicant->token);
-            Session::set('id' , $applicant->id);
-            Session::set('account' , 'applicant');
+            Session::set('token', $applicant['token']);
+            Session::set('id', $applicant['id']);
+            Session::set('account', 'applicant');
             header('Location:/home/applicant');
             exit;
         }

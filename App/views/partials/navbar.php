@@ -18,11 +18,16 @@
                 </div>
             </div>
             <a href="/contact" class="nav-item nav-link">Contact</a>
-            <a href="/signup-type" class="nav-item nav-link">Sign Up</a>
-            <a href="/login" class="nav-item nav-link">Log in</a>
-            <a href="/logout" class="nav-item nav-link">Logout</a>
+            <?php if (!isset($_SESSION['token'])): ?>
+                <a href="/signup-type" class="nav-item nav-link">Sign Up</a>
+                <a href="/login" class="nav-item nav-link">Log in</a>
+            <?php elseif (isset($_SESSION['token']) && $_SESSION['account'] == 'organization'): ?>
+                <a href="/logout" class="nav-item nav-link">Logout</a>
+                <a href="/jobs/create" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            <?php else: ?>
+                <a href="/logout" class="nav-item nav-link">Logout</a>
+            <?php endif ?>
         </div>
-        <a href="/jobs/create" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i
-                class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
