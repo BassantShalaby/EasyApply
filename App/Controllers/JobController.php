@@ -120,14 +120,89 @@ class JobController
         $job['description'] = $job['description'] ? explode("\r\n", $job['description']) : $job['description'];
         $job['requirements'] = $job['requirements'] ? explode("\r\n", $job['requirements']) : $job['requirements'];
 
-        view('jobs/show', [
-            'job' => $job,
-            'skills' => $skills,
-            'company' => $company,
-        ]);
+        $applicant_id = $_SESSION['id'] ?? null;
+        $job_id = $_GET['id'];
+        $alreadyApplied = $this->checkIfAlreadyApplied($applicant_id, $job_id);
+
+    // Pass the job details, skills, company info, job ID, and alreadyApplied flag to the view
+    view('jobs/show', [
+        'job' => $job,
+        'skills' => $skills,
+        'company' => $company,
+        'job_id' => $id,
+        'alreadyApplied' => $alreadyApplied, // Pass the alreadyApplied flag to the view
+    ]);
     }
 
 
+    private function checkIfAlreadyApplied($applicant_id, $job_id)
+    {
+        // Query the database to check if the user has already applied to the job
+        $query = "SELECT COUNT(*) AS count FROM applies WHERE applicant_id = :applicant_id AND job_id = :job_id";
+        $params = ['applicant_id' => $applicant_id, 'job_id' => $job_id];
+        $result = $this->db->query($query, $params)->fetch(PDO::FETCH_ASSOC);
+        
+        // If count > 0, it means the user has already applied, so return true; otherwise, return false
+        return ($result['count'] > 0);
+    }
+    
+    
+    public function send_applied_job()
+    {
+        // Get job ID from the URL
+        $job_id = isset($_GET['id']) ? intval($_GET['id']) : null;
+    
+        // Get reason from the form
+        $reason = isset($_POST['reason']) ? trim($_POST['reason']) : '';
+    
+        // Get applicant ID from session (assuming it's stored in session variable $_SESSION['applicant_id'])
+        $applicant_id = $_SESSION['id'] ?? null;
+    
+        // Validate job ID
+        // if (!$job_id) {
+        //     echo "Job ID is missing";
+        //     return;
+        // }
+    
+        if (empty($reason)) {
+            $errors['reason'] = 'Reason is required';
+        }
+    
+        if (!empty($errors)) {
+            view('/job/show', [
+                'errors' => $errors,
+                'apply' => ['reason' => $reason]
+            ]);
+            return;
+        }
+    
+        // Check if the user has already applied to the job
+       
+    
+        // Insert the application into the database
+        try {
+            $data = [
+                'applicant_id' => $applicant_id,
+                'job_id' => $job_id,
+                'status' => 'applied',
+                'reason' => $reason
+            ];
+    
+            $fields = implode(', ', array_keys($data));
+            $placeholders = ':' . implode(', :', array_keys($data));
+            $query = "INSERT INTO applies ({$fields}) VALUES ({$placeholders})";
+            $this->db->query($query, $data);
+    
+            // Redirect to a success page or do other actions upon successful insertion
+            redirect('/jobs');
+        } catch (\Exception $e) {
+            // Handle database insertion error
+            echo "An error occurred: " . $e->getMessage();
+        }
+    }
+    
+    
+ 
     public function destroy()
     {
         $id = $_GET['id'];
@@ -247,12 +322,27 @@ class JobController
         $keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : '';
         $location = isset($_GET['location']) ? trim($_GET['location']) : '';
 
-        $query = "SELECT * FROM jobs 
-            WHERE (title LIKE :keywords OR description LIKE :keywords OR job_status LIKE :keywords 
-                   OR level LIKE :keywords OR location_type LIKE :keywords OR gender LIKE :keywords 
-                   OR emp_type LIKE :keywords) 
-            AND (city_id IN (SELECT id FROM cities WHERE name LIKE :location) 
-                 OR country_id IN (SELECT id FROM countries WHERE name LIKE :location))";
+        $query = "SELECT j.*, c.name AS city_name, co.name AS country_name
+        FROM jobs j
+        JOIN cities c ON j.city_id = c.id
+        JOIN countries co ON c.country_id = co.id
+        WHERE (
+            j.title LIKE :keywords 
+            OR j.description LIKE :keywords 
+            OR j.job_status LIKE :keywords 
+            OR j.level LIKE :keywords 
+            OR j.exp_years LIKE :keywords 
+            OR j.salary_max LIKE :keywords 
+            OR j.salary_min LIKE :keywords 
+            OR j.location_type LIKE :keywords 
+            OR j.gender LIKE :keywords 
+            OR j.emp_type LIKE :keywords
+            OR j.requirements LIKE :keywords 
+        ) 
+        AND (
+            c.name LIKE :location
+            OR co.name LIKE :location
+        )";
 
         // Dump the generated SQL query and parameters for debugging
         $params = [
@@ -260,8 +350,9 @@ class JobController
             'location' => "%{$location}%"
         ];
 
-        $jobs = $this->db->query($query, $params)->fetchAll();
-
+        $jobs = $this->db->query($query, $params)->fetchAll(PDO::FETCH_ASSOC);
+        // $q = 'select j.*, c.name as city_name, ct.name as country_name from jobs j join cities c on j.city_id = c.id join countries ct on c.country_id = ct.id';
+        // $jobs = $this->db->query($q)->fetchAll(PDO::FETCH_ASSOC);
         View('/jobs/index', [
             'jobs' => $jobs,
             'keywords' => $keywords,

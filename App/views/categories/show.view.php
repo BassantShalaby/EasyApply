@@ -17,7 +17,7 @@ loadPartial("navbar");
             <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
                 <li class="nav-item">
                     <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                        href="#tab-1">
+                        href="#tab-1 ">
                         <h6 class="mt-n1 mb-0">Featured</h6>
                     </a>
                 </li>
@@ -43,9 +43,8 @@ loadPartial("navbar");
                                     style="width: 80px; height: 80px;">
                                 <div class="text-start ps-4">
                                     <h5 class="mb-3"><?= $job['title'] ?></h5>
-                                    <span class="text-truncate me-3"><i
-                                            class="fa fa-map-marker-alt text-primary me-2"></i>New York,
-                                        USA</span>
+                                    <span class="text-truncate me-3"><i 
+                                            class="fa fa-map-marker-alt text-primary me-2"></i> <?= $job['city_name'] ?>, <?= $job['country_name'] ?></span>
                                     <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i><?= $job['emp_type'] ?></span>
                                     <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i><?= $job['salary_max'] ?> $ - <?= $job['salary_min'] ?> $</span>
                                 </div>
