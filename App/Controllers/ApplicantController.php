@@ -81,7 +81,7 @@ class ApplicantController
             $row = $status->fetch(PDO::FETCH_ASSOC);
             $status_values = explode(",", str_replace("'", "", substr($row['Type'], 5, -1)));
         }
-        view('applicants/jobs', [            
+        view('applicants/jobs', [
             'jobs' => $jobs,
             'status_values' => $status_values,
         ]);
@@ -148,7 +148,9 @@ class ApplicantController
         $b_date = $_POST['b_date'];
         $title = $_POST['title'];
         $info = $_POST['info'];
-        $skills[] = $_POST['skills'];
+        if (isset($_POST['skills'])) {
+            $skills[] = $_POST['skills'];
+        }
         if (isset($_FILES['pp'])) {
             $pp = $_FILES['pp'];
         }
