@@ -3,8 +3,20 @@
 $router->get('/', 'HomeController@index');
 $router->get('/about', 'AboutController@index');
 $router->get('/contact', 'ContactController@index');
+
+//--------------------
+//apply routes
+//--------------------
+$router->get('/apply', 'ApplyController@index');
+$router->post('/apply', 'ApplyController@send_applied_job');
+
+//--------------------
+//category routes
+//--------------------
 $router->get('/category', 'CategoryController@index');
+$router->get('/category/show', 'CategoryController@show');
 $router->get('/testimonial', 'TestimonialController@index');
+
 //--------------------
 //Jobs routes
 //--------------------
@@ -15,9 +27,12 @@ $router->get('/jobs/edit', 'JobController@edit');
 $router->put('/jobs/update', 'JobController@update');
 $router->get('/jobs/show', 'JobController@show');
 $router->get('/jobs/create', 'JobController@create');
+$router->get('/jobs/search', 'JobController@search');
+
 //--------------------
 //Auth routes
 //--------------------
+
 //signup as ....
 $router->get('/signup-type', 'AuthController@Index');
 //organization signup
@@ -33,6 +48,7 @@ $router->get('/login', 'LoginController@Index');
 $router->post('/login', 'LoginController@Login');
 //logout
 $router->get('/logout', 'AuthController@Logout');
+
 //--------------------
 // Applicants Routes
 //--------------------
@@ -40,6 +56,7 @@ $router->get('/applicants', 'ApplicantController@index');
 $router->get('/applicants/show', 'ApplicantController@show');
 $router->get('/applicants/jobs', 'ApplicantController@jobs');
 $router->get('/applicants/edit', 'ApplicantController@edit');
+
 //--------------------
 // Organizations Routes
 //--------------------

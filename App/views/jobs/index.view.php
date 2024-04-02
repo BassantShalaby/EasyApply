@@ -4,9 +4,8 @@ loadPartial("spinner");
 loadPartial("navbar");
 ?>
 
-
 <!-- Header End -->
-<div class="container-fluid py-5 bg-dark page-header mb-5">
+<div class="container-fluid py-5 bg-dark page-header">
     <div class="container my-5 pt-5 pb-4">
         <h1 class="display-3 text-white mb-3 animated slideInDown">Job List</h1>
         <nav aria-label="breadcrumb">
@@ -20,9 +19,12 @@ loadPartial("navbar");
 </div>
 <!-- Header End -->
 
+<?php
+loadPartial("search");
+?>
 
 <!-- Jobs Start -->
-<div class="container-fluid py-5">
+<div class="container-fluid pb-5">
     <div class="container">
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Featured Jobs</h1>
         <div class="text-center wow fadeInUp" data-wow-delay="0.3s">

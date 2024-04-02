@@ -19,12 +19,12 @@ require '../helpers.php';
 // $router->route($uri, $method);
 
 // include the following code in the controller you want to get data from database in it
-/* 
-use Framework\Database;
-$config = require basePath('config/db.php');
-$db = new Database($config);
-$jobs = $db->query('your query here')->fetchAll(PDO::FETCH_ASSOC);
-*/
+
+// use Framework\Database;
+// $config = require basePath('config/db.php');
+// $db = new Database($config);
+// $jobs = $db->query('your query here')->fetchAll(PDO::FETCH_ASSOC);
+
 
 // ex using prepared statements
 /*
